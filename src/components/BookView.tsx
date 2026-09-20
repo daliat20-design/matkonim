@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { SteamDoodle, LaurelBranch, HeartDoodle, OliveSprig, PaperClip } from './DecorativeIcons';
 import { compressImageFile } from '../utils/imageCompressor';
+import { CANONICAL_RECIPE_IMAGES } from '../data/recipes';
 
 interface BookViewProps {
   recipe: Recipe;
@@ -27,6 +28,7 @@ interface BookViewProps {
   theme: BookTheme;
   onNextPage: () => void;
   onPrevPage: () => void;
+  onGoToCover?: () => void;
   onToggleFavorite: (id: string) => void;
   onOpenShare: (recipe: Recipe) => void;
   onOpenCookingMode: (recipe: Recipe) => void;
@@ -43,6 +45,7 @@ export const BookView: React.FC<BookViewProps> = ({
   theme,
   onNextPage,
   onPrevPage,
+  onGoToCover,
   onToggleFavorite,
   onOpenShare,
   onOpenCookingMode,
@@ -82,23 +85,29 @@ export const BookView: React.FC<BookViewProps> = ({
     setMobileTab('ingredients');
   }, [recipe.id]);
 
+  // Fallback to canonical imported image if local url is invalid, broken, or vite-dev-only
+  const canonicalImg = CANONICAL_RECIPE_IMAGES[recipe.id];
+  const effectiveImageUrl = (recipe.imageUrl && (recipe.imageUrl.startsWith('data:') || recipe.imageUrl.startsWith('blob:') || recipe.imageUrl.startsWith('http') || recipe.imageUrl.startsWith('/assets/')))
+    ? recipe.imageUrl
+    : (canonicalImg || recipe.imageUrl);
+
   return (
-    <div className="relative w-full max-w-6xl mx-auto flex flex-col items-center">
+    <div className="relative w-full max-w-6xl mx-auto flex flex-col items-center overflow-x-hidden">
       {/* Decorative Hanging Bookmark Ribbon */}
       <div 
-        onClick={onOpenTableOfContents}
-        className="absolute -top-3 sm:-top-5 left-10 sm:left-24 z-30 cursor-pointer group transition-transform hover:translate-y-1 select-none"
-        title="תוכן העניינים של הספר"
+        onClick={onGoToCover || onOpenTableOfContents}
+        className="absolute -top-3 sm:-top-5 left-6 sm:left-24 z-30 cursor-pointer group transition-transform hover:translate-y-1 select-none"
+        title="חזרה לשער הספר ולתוכן העניינים"
       >
-        <div className="relative w-8 sm:w-10 h-16 sm:h-20 bg-[#9e2a2b] shadow-md rounded-t-sm flex flex-col items-center justify-between pb-2 border-x border-[#7a1f20]">
+        <div className="relative w-7 sm:w-10 h-14 sm:h-20 bg-[#9e2a2b] shadow-md rounded-t-sm flex flex-col items-center justify-between pb-2 border-x border-[#7a1f20]">
           <div className="w-full h-1 bg-amber-300/40 mt-1" />
-          <Bookmark className="w-4 h-4 text-amber-200 fill-amber-200/80 mb-1" />
-          <div className="absolute -bottom-3 left-0 right-0 border-l-[16px] sm:border-l-[20px] border-l-[#9e2a2b] border-r-[16px] sm:border-r-[20px] border-r-[#9e2a2b] border-b-[12px] border-b-transparent border-t-0" />
+          <Bookmark className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-200 fill-amber-200/80 mb-1" />
+          <div className="absolute -bottom-3 left-0 right-0 border-l-[14px] sm:border-l-[20px] border-l-[#9e2a2b] border-r-[14px] sm:border-r-[20px] border-r-[#9e2a2b] border-b-[10px] sm:border-b-[12px] border-b-transparent border-t-0" />
         </div>
       </div>
 
       {/* Main Physical Book Container */}
-      <div className="relative w-full rounded-2xl sm:rounded-3xl p-2 sm:p-5 lg:p-7 bg-[#2d1c14] border-4 sm:border-8 border-[#3f271c] shadow-2xl book-edge-stack">
+      <div className="relative w-full rounded-2xl sm:rounded-3xl p-1.5 sm:p-5 lg:p-7 bg-[#2d1c14] border-2 sm:border-8 border-[#3f271c] shadow-2xl book-edge-stack overflow-hidden">
         
         {/* Book Spine Texture Top Decor */}
         <div className="hidden lg:flex justify-between items-center px-4 py-1 mb-2 text-[#96735e] text-xs font-serif tracking-widest border-b border-[#442c20]">
@@ -220,9 +229,15 @@ export const BookView: React.FC<BookViewProps> = ({
                   {/* The watercolor artwork */}
                   <div className="relative w-full h-full rounded-2xl overflow-hidden p-2 bg-white/70 shadow-md border-2 border-[#dfd0b7] rotate-[-1deg] group-hover:rotate-0 transition-transform duration-300">
                     <img 
-                      src={recipe.imageUrl} 
+                      src={effectiveImageUrl} 
                       alt={recipe.title}
                       className="w-full h-full object-contain drop-shadow-md"
+                      onError={(e) => {
+                        const fallback = CANONICAL_RECIPE_IMAGES[recipe.id];
+                        if (fallback && e.currentTarget.src !== fallback) {
+                          e.currentTarget.src = fallback;
+                        }
+                      }}
                     />
 
                     {/* Quick photo update button */}
@@ -451,10 +466,10 @@ export const BookView: React.FC<BookViewProps> = ({
               )}
 
               {/* Quick Info bar */}
-              <div className="flex items-center justify-between text-[11px] py-1.5 px-2 bg-white/60 rounded-lg border border-[#dfd0b7] mb-3 text-[#583f2e]">
+              <div className="flex flex-wrap items-center justify-between gap-1 text-[11px] py-1.5 px-2 bg-white/60 rounded-lg border border-[#dfd0b7] mb-3 text-[#583f2e]">
                 <span>⏱️ הכנה: {recipe.prepTime}</span>
                 <span>🔥 בישול: {recipe.cookTime}</span>
-                <span>👥 {recipe.servings}</span>
+                <span className="truncate max-w-[140px]">👥 {recipe.servings}</span>
               </div>
 
               {/* Physical Bookmark Tabs (NOT landing page buttons, but notebook tabs!) */}
@@ -494,9 +509,15 @@ export const BookView: React.FC<BookViewProps> = ({
                     </div>
                     <div className="relative w-full h-full rounded-xl overflow-hidden p-1.5 bg-white/70 shadow-sm border border-[#dfd0b7]">
                       <img 
-                        src={recipe.imageUrl} 
+                        src={effectiveImageUrl} 
                         alt={recipe.title} 
                         className="w-full h-full object-contain"
+                        onError={(e) => {
+                          const fallback = CANONICAL_RECIPE_IMAGES[recipe.id];
+                          if (fallback && e.currentTarget.src !== fallback) {
+                            e.currentTarget.src = fallback;
+                          }
+                        }}
                       />
                       {onUpdateRecipeImage && (
                         <label 
@@ -597,40 +618,41 @@ export const BookView: React.FC<BookViewProps> = ({
         {/* ============================================================ */}
         {/* PHYSICAL BOOK BOTTOM CONTROLLER (Turn Pages / Index)         */}
         {/* ============================================================ */}
-        <div className="mt-3 sm:mt-5 pt-3 border-t border-[#472d20] flex items-center justify-between px-2 sm:px-6">
-          {/* Previous Page (RTL: right button moves to previous page) */}
+        <div className="mt-2.5 sm:mt-5 pt-2.5 border-t border-[#472d20] flex items-center justify-between px-1 sm:px-6 w-full gap-1">
+          {/* Previous Page (RTL: right button moves to previous page or cover) */}
           <button
-            disabled={currentPageIndex === 0}
             onClick={onPrevPage}
-            className="px-3 sm:px-5 py-2 rounded-xl bg-[#4a2e21] hover:bg-[#5e3b2b] disabled:opacity-30 disabled:cursor-not-allowed text-amber-100 font-semibold text-xs sm:text-sm flex items-center gap-1.5 transition-all shadow-md active:scale-95"
-            title="עמוד קודם"
+            className="px-2 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-[#4a2e21] hover:bg-[#5e3b2b] text-amber-100 font-semibold text-xs sm:text-sm flex items-center gap-1 transition-all shadow-md active:scale-95 shrink-0"
+            title={currentPageIndex === 0 ? "חזרה לשער ולפתיח" : "עמוד קודם"}
           >
-            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-amber-300" />
-            <span>לעמוד הקודם</span>
+            <ChevronRight className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-amber-300" />
+            <span className="hidden sm:inline">{currentPageIndex === 0 ? "לשער ולפתיח" : "לעמוד הקודם"}</span>
+            <span className="sm:hidden">{currentPageIndex === 0 ? "לשער" : "הקודם"}</span>
           </button>
 
           {/* Center page indicator & table of contents shortcut */}
           <button
-            onClick={onOpenTableOfContents}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#3d251a] hover:bg-[#4d3022] text-amber-200 text-xs sm:text-sm transition-colors border border-amber-950"
-            title="פתח תוכן עניינים"
+            onClick={onGoToCover || onOpenTableOfContents}
+            className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-[#3d251a] hover:bg-[#4d3022] text-amber-200 text-xs sm:text-sm transition-colors border border-amber-950/80 shrink-0"
+            title="מעבר לשער ולתוכן עניינים"
           >
-            <BookOpen className="w-3.5 h-3.5 text-amber-400" />
-            <span className="font-mono font-bold text-amber-300">
-              עמוד {currentPageIndex + 1} / {totalPages}
+            <BookOpen className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400" />
+            <span className="font-mono font-bold text-amber-300 text-xs sm:text-sm">
+              עמ' {currentPageIndex + 1} / {totalPages}
             </span>
-            <span className="hidden sm:inline text-amber-200/70 text-xs">(תוכן עניינים)</span>
+            <span className="hidden sm:inline text-amber-200/70 text-xs">(תוכן)</span>
           </button>
 
           {/* Next Page (RTL: left button moves to next page) */}
           <button
             disabled={currentPageIndex >= totalPages - 1}
             onClick={onNextPage}
-            className="px-3 sm:px-5 py-2 rounded-xl bg-[#8a4b2a] hover:bg-[#9c5530] disabled:opacity-30 disabled:cursor-not-allowed text-amber-50 font-bold text-xs sm:text-sm flex items-center gap-1.5 transition-all shadow-md active:scale-95"
+            className="px-2 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-[#8a4b2a] hover:bg-[#9c5530] disabled:opacity-30 disabled:cursor-not-allowed text-amber-50 font-bold text-xs sm:text-sm flex items-center gap-1 transition-all shadow-md active:scale-95 shrink-0"
             title="עמוד הבא"
           >
-            <span>לעמוד הבא</span>
-            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-amber-200" />
+            <span className="hidden sm:inline">לעמוד הבא</span>
+            <span className="sm:hidden">הבא</span>
+            <ChevronLeft className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-amber-200" />
           </button>
         </div>
       </div>

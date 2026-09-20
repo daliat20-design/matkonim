@@ -9,6 +9,17 @@ import pomeloSaladImg from '../assets/images/pomelo_fresh_salad_1789737046460.jp
 import candiedPeelsImg from '../assets/images/candied_orange_peels_1789737013635.jpg';
 import estherKugelImg from '../assets/images/savta_esther_kugel_1789838435747.jpg';
 
+// Canonical imported images for reliable mobile and production bundling
+export const CANONICAL_RECIPE_IMAGES: Record<string, string> = {
+  'guasacaca-sauce': guasacacaImg,
+  'chopped-liver': choppedLiverImg,
+  'pomelo-salad': pomeloSaladImg,
+  'almoronia-chicken-wings': almoroniaImg,
+  'spanish-almond-budin': almondPuddingImg,
+  'candied-orange-peels': candiedPeelsImg,
+  'savta-esther-kugel': estherKugelImg,
+};
+
 export const INITIAL_RECIPES: Recipe[] = [
   // 1. רוטב גואסאקאקה (Guasacaca) - רטבים
   {

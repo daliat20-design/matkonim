@@ -8,8 +8,20 @@ interface MobileLinkModalProps {
 export const MobileLinkModal: React.FC<MobileLinkModalProps> = ({ onClose }) => {
   const [copied, setCopied] = useState(false);
 
-  // Link for the shared app
-  const mobileUrl = window.location.href;
+  // Link for the shared app - prefer the public production pre-url for phones
+  const getPublicMobileUrl = () => {
+    try {
+      const current = window.location.href;
+      if (current.includes('ais-dev-')) {
+        return current.replace('ais-dev-', 'ais-pre-');
+      }
+      return current;
+    } catch (e) {
+      return 'https://ais-pre-2kvel5e2f2aehsyrge6v2q-29867443297.europe-west1.run.app';
+    }
+  };
+
+  const mobileUrl = getPublicMobileUrl();
 
   const handleCopy = () => {
     navigator.clipboard.writeText(mobileUrl);

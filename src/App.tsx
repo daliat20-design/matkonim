@@ -5,8 +5,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { Recipe, BookThemeId } from './types';
-import { INITIAL_RECIPES, BOOK_THEMES } from './data/recipes';
+import { INITIAL_RECIPES, BOOK_THEMES, CANONICAL_RECIPE_IMAGES } from './data/recipes';
 import { BookView } from './components/BookView';
+import { BookCoverPage } from './components/BookCoverPage';
 import { ThemeSelectorModal } from './components/ThemeSelectorModal';
 import { TableOfContentsModal } from './components/TableOfContentsModal';
 import { AddRecipeModal } from './components/AddRecipeModal';
@@ -49,7 +50,7 @@ const DEMO_RECIPES_TO_PURGE = new Set([
 ]);
 
 export default function App() {
-  // Load initial state ensuring only user-uploaded recipes exist
+  // Load initial state ensuring only user-uploaded recipes exist and canonical images are hydrated
   const [recipes, setRecipes] = useState<Recipe[]>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_RECIPES_KEY);
@@ -62,7 +63,16 @@ export default function App() {
             // Make sure any newly added user initial recipes exist
             const existingIds = new Set(cleaned.map((r: Recipe) => r.id));
             const missing = INITIAL_RECIPES.filter(r => !existingIds.has(r.id));
-            return [...cleaned, ...missing];
+            const combined = [...cleaned, ...missing];
+            return combined.map((r: Recipe) => {
+              if (!r.imageUrl || r.imageUrl.startsWith('/src/assets') || r.imageUrl.startsWith('src/assets') || r.imageUrl.includes('localhost')) {
+                const canonical = CANONICAL_RECIPE_IMAGES[r.id];
+                if (canonical) {
+                  return { ...r, imageUrl: canonical };
+                }
+              }
+              return r;
+            });
           }
         }
       }
@@ -91,7 +101,8 @@ export default function App() {
   });
 
   const [isEditingTitle, setIsEditingTitle] = useState(false);
-  const [currentRecipeIndex, setCurrentRecipeIndex] = useState(0);
+  // Default to -1 so the book opens on the Cover Page with the story and Table of Contents!
+  const [currentRecipeIndex, setCurrentRecipeIndex] = useState(-1);
 
   // Modals state
   const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
@@ -122,7 +133,15 @@ export default function App() {
       const filtered = prev.filter(r => !DEMO_RECIPES_TO_PURGE.has(r.id));
       const existingIds = new Set(filtered.map(r => r.id));
       const missing = INITIAL_RECIPES.filter(r => !existingIds.has(r.id));
-      return [...filtered, ...missing];
+      return [...filtered, ...missing].map(r => {
+        if (!r.imageUrl || r.imageUrl.startsWith('/src/assets') || r.imageUrl.startsWith('src/assets') || r.imageUrl.includes('localhost')) {
+          const canonical = CANONICAL_RECIPE_IMAGES[r.id];
+          if (canonical) {
+            return { ...r, imageUrl: canonical };
+          }
+        }
+        return r;
+      });
     });
   }, []);
 
@@ -152,18 +171,24 @@ export default function App() {
   // Current active theme object
   const currentTheme = BOOK_THEMES.find(t => t.id === currentThemeId) || BOOK_THEMES[0];
 
-  // Current active recipe
-  const currentRecipe = recipes[currentRecipeIndex] || recipes[0];
+  // Current active recipe (fallback to first recipe if on cover)
+  const currentRecipe = currentRecipeIndex >= 0 
+    ? (recipes[currentRecipeIndex] || recipes[0])
+    : recipes[0];
 
-  // Page turning handlers
+  // Page turning handlers: support -1 (Cover & Table of Contents)
   const handleNextPage = () => {
-    if (currentRecipeIndex < recipes.length - 1) {
+    if (currentRecipeIndex === -1) {
+      setCurrentRecipeIndex(0);
+    } else if (currentRecipeIndex < recipes.length - 1) {
       setCurrentRecipeIndex(i => i + 1);
     }
   };
 
   const handlePrevPage = () => {
-    if (currentRecipeIndex > 0) {
+    if (currentRecipeIndex === 0) {
+      setCurrentRecipeIndex(-1);
+    } else if (currentRecipeIndex > 0) {
       setCurrentRecipeIndex(i => i - 1);
     }
   };
@@ -223,122 +248,141 @@ export default function App() {
     <div className="min-h-screen bg-[#241c18] text-[#f4eee5] flex flex-col justify-between selection:bg-[#8a4b2a] selection:text-white" dir="rtl">
       
       {/* ---------------- TOP VINTAGE WOODEN COOKBOOK APP BAR ---------------- */}
-      <header className="sticky top-0 z-40 bg-[#2d1f18]/95 backdrop-blur-md border-b border-[#4d3528] shadow-md px-3 sm:px-6 py-2.5 no-print">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+      <header className="sticky top-0 z-40 bg-[#2d1f18]/95 backdrop-blur-md border-b border-[#4d3528] shadow-md px-2 sm:px-6 py-2 no-print max-w-full overflow-hidden">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-1.5 sm:gap-3">
           
           {/* Family Book Title */}
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-[#8a4b2a] flex items-center justify-center text-amber-100 shadow-xs border border-amber-900/50 shrink-0">
-              <BookOpen className="w-5 h-5" />
-            </div>
-            <div>
+          <div className="flex items-center gap-1.5 sm:gap-2.5 min-w-0">
+            <button
+              onClick={() => setCurrentRecipeIndex(-1)}
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#8a4b2a] hover:bg-[#9e542d] flex items-center justify-center text-amber-100 shadow-xs border border-amber-900/50 shrink-0 transition-colors"
+              title="לשער הספר ולתוכן העניינים"
+            >
+              <BookOpen className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+            <div className="min-w-0">
               {isEditingTitle ? (
                 <div className="flex items-center gap-1">
                   <input
                     type="text"
                     value={familyBookTitle}
                     onChange={e => setFamilyBookTitle(e.target.value)}
-                    className="px-2 py-0.5 rounded bg-black/40 text-amber-200 border border-[#8a4b2a] text-sm font-bold focus:outline-none"
+                    className="px-2 py-0.5 rounded bg-black/40 text-amber-200 border border-[#8a4b2a] text-xs sm:text-sm font-bold focus:outline-none max-w-[120px] sm:max-w-none"
                     autoFocus
                   />
                   <button
                     onClick={() => setIsEditingTitle(false)}
                     className="p-1 rounded bg-[#8a4b2a] text-white"
                   >
-                    <Check className="w-3.5 h-3.5" />
+                    <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                   </button>
                 </div>
               ) : (
-                <div className="flex items-center gap-1.5 group cursor-pointer" onClick={() => setIsEditingTitle(true)}>
-                  <h1 className="font-bold text-base sm:text-lg font-['Frank_Ruhl_Libre'] text-amber-100 group-hover:text-amber-300 transition-colors">
+                <div className="flex items-center gap-1 group cursor-pointer" onClick={() => setIsEditingTitle(true)}>
+                  <h1 className="font-bold text-xs sm:text-lg font-['Frank_Ruhl_Libre'] text-amber-100 group-hover:text-amber-300 transition-colors truncate max-w-[120px] xs:max-w-[170px] sm:max-w-none">
                     {familyBookTitle}
                   </h1>
-                  <Edit2 className="w-3.5 h-3.5 text-[#8a4b2a] group-hover:text-amber-300 transition-colors opacity-60 group-hover:opacity-100" />
+                  <Edit2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#8a4b2a] group-hover:text-amber-300 transition-colors opacity-60 group-hover:opacity-100 shrink-0" />
                 </div>
               )}
-              <div className="text-[11px] text-[#a88a75] hidden sm:block">
+              <div className="text-[10px] sm:text-[11px] text-[#a88a75] hidden sm:block">
                 מהדורה דיגיטלית חמה ומאוירת • {recipes.length} מתכונים משפחתיים
               </div>
             </div>
           </div>
 
           {/* Quick Action Navigation Buttons */}
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
 
-            {/* Book Prologue / Story Button */}
+            {/* Book Cover / Story & TOC Button */}
             <button
-              onClick={() => setIsIntroModalOpen(true)}
-              className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#523321] hover:bg-[#68412a] text-amber-100 text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition-all border border-[#784c31] shadow-xs"
-              title="סיפור המשפחה והמטבח שלנו - פתיח הספר"
+              onClick={() => setCurrentRecipeIndex(-1)}
+              className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1 transition-all border shadow-xs ${
+                currentRecipeIndex === -1
+                  ? 'bg-[#8a4b2a] text-amber-50 border-amber-600'
+                  : 'bg-[#523321] hover:bg-[#68412a] text-amber-100 border-[#784c31]'
+              }`}
+              title="שער הספר, הסיפור ותוכן העניינים"
             >
               <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-              <span className="hidden sm:inline">פתיח הספר</span>
+              <span className="hidden xs:inline sm:inline">שער ותוכן</span>
             </button>
 
-            {/* Mobile Link & QR Button */}
+            {/* Mobile Link & QR Button (hidden on narrow screens to prevent overflow) */}
             <button
               onClick={() => setIsMobileLinkModalOpen(true)}
-              className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#39261c] hover:bg-[#4d3427] text-amber-200 text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition-colors border border-[#5a3c2c]"
+              className="hidden md:flex px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#39261c] hover:bg-[#4d3427] text-amber-200 text-xs sm:text-sm font-semibold items-center gap-1.5 transition-colors border border-[#5a3c2c]"
               title="פתיחת הספר בנייד ובסמארטפון (סריקת QR או קישור)"
             >
               <Smartphone className="w-4 h-4 text-amber-400" />
-              <span className="hidden md:inline">תצוגה בנייד</span>
+              <span className="hidden lg:inline">תצוגה בנייד</span>
             </button>
             
             {/* Theme Picker Button */}
             <button
               onClick={() => setIsThemeModalOpen(true)}
-              className="px-2.5 sm:px-3.5 py-1.5 rounded-xl bg-[#422c20] hover:bg-[#573b2c] text-amber-200 text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition-colors border border-[#5a3c2c] shadow-xs"
-              title="בחירת סגנון ספר (איור / מחברת / כפרי / מוזהב)"
+              className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-[#422c20] hover:bg-[#573b2c] text-amber-200 text-xs sm:text-sm font-semibold flex items-center gap-1 transition-colors border border-[#5a3c2c] shadow-xs"
+              title="בחירת סגנון ספר"
             >
-              <Palette className="w-4 h-4 text-amber-400" />
-              <span className="hidden lg:inline">עיצוב:</span>
-              <span className="text-amber-100 font-bold truncate max-w-[80px] sm:max-w-none">
-                {currentTheme.name.split(' ')[0]}
-              </span>
+              <Palette className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
+              <span className="hidden md:inline">עיצוב</span>
             </button>
 
-            {/* Table of Contents Button */}
+            {/* Table of Contents Search Button */}
             <button
               onClick={() => setIsTocModalOpen(true)}
-              className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#422c20] hover:bg-[#573b2c] text-amber-200 text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition-colors border border-[#5a3c2c]"
-              title="תוכן העניינים"
+              className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-[#422c20] hover:bg-[#573b2c] text-amber-200 text-xs sm:text-sm font-semibold flex items-center gap-1 transition-colors border border-[#5a3c2c]"
+              title="חיפוש מתכון"
             >
-              <Search className="w-4 h-4 text-amber-400" />
-              <span className="hidden sm:inline">תוכן עניינים</span>
+              <Search className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
+              <span className="hidden sm:inline">חיפוש</span>
             </button>
 
             {/* Add Recipe Button */}
             <button
               onClick={() => setIsAddRecipeModalOpen(true)}
-              className="px-3 sm:px-4 py-1.5 rounded-xl bg-[#8a4b2a] hover:bg-[#9e542d] text-amber-50 text-xs sm:text-sm font-bold flex items-center gap-1.5 transition-colors shadow-md active:scale-95"
+              className="px-2 sm:px-4 py-1 sm:py-1.5 rounded-xl bg-[#8a4b2a] hover:bg-[#9e542d] text-amber-50 text-xs sm:text-sm font-bold flex items-center gap-1 transition-colors shadow-md active:scale-95 shrink-0"
+              title="הוספת מתכון חדש"
             >
-              <Plus className="w-4 h-4" />
-              <span>מתכון חדש</span>
+              <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">מתכון חדש</span>
+              <span className="sm:hidden">חדש</span>
             </button>
           </div>
         </div>
       </header>
 
       {/* ---------------- MAIN RECIPE BOOK READING AREA ---------------- */}
-      <main className="flex-1 py-4 sm:py-8 px-2 sm:px-4 flex items-center justify-center">
-        <BookView
-          recipe={currentRecipe}
-          currentPageIndex={currentRecipeIndex}
-          totalPages={recipes.length}
-          theme={currentTheme}
-          onNextPage={handleNextPage}
-          onPrevPage={handlePrevPage}
-          onToggleFavorite={handleToggleFavorite}
-          onOpenShare={(rec) => setShareRecipe(rec)}
-          onOpenCookingMode={(rec) => {
-            setCurrentRecipeIndex(recipes.findIndex(r => r.id === rec.id));
-            setIsCookingModeOpen(true);
-          }}
-          onOpenTableOfContents={() => setIsTocModalOpen(true)}
-          onEditRecipe={(rec) => setEditingRecipe(rec)}
-          onUpdateRecipeImage={handleUpdateRecipeImage}
-        />
+      <main className="flex-1 py-2 sm:py-8 px-1 sm:px-4 flex items-center justify-center w-full max-w-full overflow-x-hidden">
+        {currentRecipeIndex === -1 ? (
+          <BookCoverPage
+            bookTitle={familyBookTitle}
+            recipes={recipes}
+            theme={currentTheme}
+            onSelectRecipe={(index) => setCurrentRecipeIndex(index)}
+            onNextPage={() => setCurrentRecipeIndex(0)}
+            onOpenAddRecipe={() => setIsAddRecipeModalOpen(true)}
+          />
+        ) : (
+          <BookView
+            recipe={currentRecipe}
+            currentPageIndex={currentRecipeIndex}
+            totalPages={recipes.length}
+            theme={currentTheme}
+            onNextPage={handleNextPage}
+            onPrevPage={handlePrevPage}
+            onGoToCover={() => setCurrentRecipeIndex(-1)}
+            onToggleFavorite={handleToggleFavorite}
+            onOpenShare={(rec) => setShareRecipe(rec)}
+            onOpenCookingMode={(rec) => {
+              setCurrentRecipeIndex(recipes.findIndex(r => r.id === rec.id));
+              setIsCookingModeOpen(true);
+            }}
+            onOpenTableOfContents={() => setIsTocModalOpen(true)}
+            onEditRecipe={(rec) => setEditingRecipe(rec)}
+            onUpdateRecipeImage={handleUpdateRecipeImage}
+          />
+        )}
       </main>
 
       {/* ---------------- BOTTOM FOOTER ---------------- */}
