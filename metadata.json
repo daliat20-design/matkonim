@@ -1,0 +1,6 @@
+{
+  "name": "ספר המתכונים המשפחתי",
+  "description": "ספר מתכונים משפחתי דיגיטלי חם ומאויר בסגנון ספר מודפס אותנטי, עם דפדוף בעמודים, סגנונות עיצוב לבחירה ושיתוף מהיר",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
