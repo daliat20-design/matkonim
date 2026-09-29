@@ -19,29 +19,21 @@ import { CANONICAL_RECIPE_IMAGES } from '../data/recipes';
 
 const DEFAULT_INTRO_TEXT = `יש משפחות שמספרות את הסיפור שלהן דרך תמונות, מכתבים וזיכרונות. אצלנו, כנראה שאפשר לספר חלק לא קטן מהסיפור גם דרך האוכל.
 
-בספר הזה נפגשים מרוקו, פולין, ונצואלה ואורוגוואי וחלקים נוספים מדרום אמריקה, עם השפעות שעברו ממטבח למטבח, מדור לדור ומארץ לארץ. סוג של קיבוץ גלויות משפחתי, שמספר לא רק מה אכלנו, אלא גם מאיפה באנו ואיך כל המקומות האלה נכנסו בסוף למטבח אחד.
+בספר הזה נפגשים מרוקו, פולין, ונצואלה ואורוגוואי ועוד... עם השפעות שעברו ממטבח למטבח, מדור לדור ומארץ לארץ. סוג של קיבוץ גלויות משפחתי, שמספר לא רק מה אכלנו, אלא גם מאיפה באנו ואיך כל המקומות האלה נכנסו בסוף למטבח אחד.
 
-כפי שכולם יודעים, סבתא אסתר נולדה במרוקו, אבל הגפילטע פיש הוא בהחלט תחרות לכל פולניה תורנית (אולי בגלל זה סבתא לאה לא אהבה אותה... - חחח). מרוקאי זה לא, אבל אצלנו כנראה שהגבולות במטבח אף פעם לא היו מאוד קשיחים.
+כפי שכולם יודעים, סבתא אסתר נולדה במרוקו, אבל הגפילטע פיש שלה, הוא בהחלט תחרות לכל פולניה תורנית (אולי בגלל זה סבתא לאה לא אהבה אותה ?... - חחח).אז,  מרוקאי זה לא -  אבל אצלנו כנראה שהגבולות במטבח אף פעם לא היו מאוד קשיחים.
 
-יש כאן מתכונים של סבא יצחק, שעלה לארץ עם סבתא מרי - אחרי שכל הילדים החליטו להפריח את השממה ולחסום את הסורים על הגדרות (כל הכבוד סבתא אסתר על הנחישות בקיבוץ דן). הוא היה מכין לנו סוכריות מקליפות תפוז. יש פה מתכונים של סבתא לאה הפולנייה, עם המאכלים האשכנזיים שלה, והחסכנות הידועה! לא צריך להשתמש במפית שלמה, גם רבע מספיק.
+יש כאן מתכון של סבא יצחק, שעלה לארץ עם סבתא מרי - אחרי שכל הילדים החליטו להפריח את השממה ולחסום את הסורים על הגדרות (כל הכבוד סבתא אסתר על הנחישות בקיבוץ דן) הוא היה מכין לנו סוכריות מקליפות תפוז. יש פה מתכונים בהשראתה של סבתא לאה הפולנייה, עם המאכלים האשכנזיים שלה, והחסכנות הידועה! ידעתם שלא צריך להשתמש במפית שלמה, גם רבע מספיק ?
 
-ג'וליאנה מביאה איתה ניחוחות מאורוגוואי, עם נגיעה איטלקית, כך שגם שם הגבולות הגיאוגרפיים לא ממש מחזיקים מעמד.
+ג'וליאנה מביאה איתה ניחוחות מאורוגוואי, עם נגיעה איטלקית, כך שגם שם הגבולות הגיאוגרפיים לא ממש מחזיקים מעמד. יש פה, מתכונים שלי (דלית) בעיקר מהרשת, אבל הם כבר אומצו על ידי המשפחה - אז מעכשיו הם שלנו !
 
-את רוב המתכונים סבתא אסתר הכתיבה בדיוק כמו שמבשלים אצלנו במשפחה: קצת מזה, קצת מזה, לפי העין, לפי הטעם, ואז פתאום: "אההה, שכחתי להגיד שמוסיפים גם..." הכי פולני שלה.
+את רוב המתכונים סבתא אסתר הכתיבה או כתבה בדיוק כמו שמבשלים אצלנו במשפחה: קצת מזה, קצת מזה, לפי העין, לפי הטעם, ואז פתאום: "אההה, שכחתי להגיד שמוסיפים גם..." הכי פולני שלה... חחח
 
-למזלנו, החברה החדשה במשפחה, הבינה המלאכותית, הצליחה להבין גם את הכמויות שלא נאמרו, גם את מה שנשכח באמצע, וגם את המשפטים שהתחילו במתכון אחד והסתיימו באחר.
+למזלנו, הבינה המלאכותית הצליחה להבין גם את הכמויות שלא נאמרו, גם את מה שנשכח באמצע, וגם את המשפטים שהתחילו במתכון אחד והסתיימו באחר.
 
-כך נולד הספר הזה.
+כך נולד הספר הזה – אוסף של טעמים, אנשים, מקומות, סיפורים וזיכרונות קטנים שעברו איתנו לאורך השנים. בתיאבון! ❤️`;
 
-הוא לא רק אוסף של מתכונים. הוא אוסף של טעמים, אנשים, מקומות, סיפורים וזיכרונות קטנים שעברו איתנו לאורך השנים.
-
-מוזמנים להמשיך ולהוסיף אליו מתכונים באופן עצמאי. כדאי תמיד לצרף גם תמונה נחמדה, זיכרון קטן או סיפור, כי בסופו של דבר אלה הדברים שהופכים מתכון משפחתי למשהו ששווה לשמור.
-
-שיהיה לכולם בתיאבון.
-
-אוהבים מלא. ❤️`;
-
-const INTRO_STORAGE_KEY = 'family_book_intro_text_v1';
+const INTRO_STORAGE_KEY = 'family_book_intro_text_v2';
 
 const CATEGORY_NAMES: Record<string, string> = {
   all: 'הכל',
@@ -73,7 +65,7 @@ export const BookCoverPage: React.FC<BookCoverPageProps> = ({
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [mobileTab, setMobileTab] = useState<'story' | 'toc'>('toc');
+  const [mobileTab, setMobileTab] = useState<'story' | 'toc'>('story');
 
   // Intro Story Text state
   const [introText, setIntroText] = useState<string>(() => {
@@ -160,48 +152,13 @@ export const BookCoverPage: React.FC<BookCoverPageProps> = ({
               </div>
 
               {/* Book Main Title */}
-              <div className="text-center mb-5">
+              <div className="text-center mb-6">
                 <h1 className="text-3xl xl:text-4xl font-black font-['Frank_Ruhl_Libre'] text-[#3a2213] tracking-tight leading-tight">
                   {bookTitle}
                 </h1>
                 <p className="text-sm text-[#7a543b] font-medium mt-1">
                   זיכרונות, טעמים ומתכונים שעברו מדור לדור
                 </p>
-              </div>
-
-              {/* Heritage Journey Badges */}
-              <div className="grid grid-cols-2 gap-2 mb-6">
-                <div className="p-2 rounded-xl bg-amber-950/5 border border-amber-900/15 flex items-center gap-2">
-                  <span className="text-lg">🇲🇦</span>
-                  <div className="text-xs">
-                    <span className="font-bold text-[#4d2d18] block">מרוקו</span>
-                    <span className="text-[10px] text-[#7c5b45]">סבתא אסתר ותבלינים חמים</span>
-                  </div>
-                </div>
-
-                <div className="p-2 rounded-xl bg-amber-950/5 border border-amber-900/15 flex items-center gap-2">
-                  <span className="text-lg">🇵🇱</span>
-                  <div className="text-xs">
-                    <span className="font-bold text-[#4d2d18] block">פולין</span>
-                    <span className="text-[10px] text-[#7c5b45]">סבתא לאה ומסורת אשכנזית</span>
-                  </div>
-                </div>
-
-                <div className="p-2 rounded-xl bg-amber-950/5 border border-amber-900/15 flex items-center gap-2">
-                  <span className="text-lg">🇻🇪</span>
-                  <div className="text-xs">
-                    <span className="font-bold text-[#4d2d18] block">ונצואלה</span>
-                    <span className="text-[10px] text-[#7c5b45]">רוטב גואסאקאקה וצבעוניות</span>
-                  </div>
-                </div>
-
-                <div className="p-2 rounded-xl bg-amber-950/5 border border-amber-900/15 flex items-center gap-2">
-                  <span className="text-lg">🇺🇾</span>
-                  <div className="text-xs">
-                    <span className="font-bold text-[#4d2d18] block">אורוגוואי</span>
-                    <span className="text-[10px] text-[#7c5b45]">ג'וליאנה וניחוחות לטיניים</span>
-                  </div>
-                </div>
               </div>
 
               {/* Family Story Text */}
@@ -370,6 +327,7 @@ export const BookCoverPage: React.FC<BookCoverPageProps> = ({
                             <img
                               src={effectiveImg}
                               alt={recipe.title}
+                              referrerPolicy="no-referrer"
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                               onError={(e) => {
                                 const fallback = CANONICAL_RECIPE_IMAGES[recipe.id];
@@ -466,20 +424,8 @@ export const BookCoverPage: React.FC<BookCoverPageProps> = ({
             {/* Notebook Tabs on Mobile: Story vs Table of Contents */}
             <div className="grid grid-cols-2 gap-1.5 mb-3">
               <button
-                onClick={() => setMobileTab('toc')}
-                className={`py-1.5 px-2.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 border ${
-                  mobileTab === 'toc'
-                    ? 'bg-[#8a4b2a] text-amber-50 border-[#8a4b2a] shadow-xs'
-                    : 'bg-[#ebe0cb] text-[#5a3f2b] border-[#d8c3a5] hover:bg-[#dfd0b7]'
-                }`}
-              >
-                <span>📖</span>
-                <span>תוכן העניינים ({recipes.length})</span>
-              </button>
-
-              <button
                 onClick={() => setMobileTab('story')}
-                className={`py-1.5 px-2.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 border ${
+                className={`py-2 px-3 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 border ${
                   mobileTab === 'story'
                     ? 'bg-[#8a4b2a] text-amber-50 border-[#8a4b2a] shadow-xs'
                     : 'bg-[#ebe0cb] text-[#5a3f2b] border-[#d8c3a5] hover:bg-[#dfd0b7]'
@@ -487,6 +433,18 @@ export const BookCoverPage: React.FC<BookCoverPageProps> = ({
               >
                 <span>📜</span>
                 <span>סיפור המשפחה</span>
+              </button>
+
+              <button
+                onClick={() => setMobileTab('toc')}
+                className={`py-2 px-3 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 border ${
+                  mobileTab === 'toc'
+                    ? 'bg-[#8a4b2a] text-amber-50 border-[#8a4b2a] shadow-xs'
+                    : 'bg-[#ebe0cb] text-[#5a3f2b] border-[#d8c3a5] hover:bg-[#dfd0b7]'
+                }`}
+              >
+                <span>📖</span>
+                <span>תוכן העניינים ({recipes.length})</span>
               </button>
             </div>
 
@@ -540,6 +498,7 @@ export const BookCoverPage: React.FC<BookCoverPageProps> = ({
                               <img
                                 src={effectiveImg}
                                 alt={recipe.title}
+                                referrerPolicy="no-referrer"
                                 className="w-full h-full object-cover"
                                 onError={(e) => {
                                   const fallback = CANONICAL_RECIPE_IMAGES[recipe.id];
@@ -583,51 +542,27 @@ export const BookCoverPage: React.FC<BookCoverPageProps> = ({
               </div>
             )}
 
-            {/* TAB 2: STORY ON MOBILE */}
+            {/* TAB 2: STORY ON MOBILE (DEFAULT) */}
             {mobileTab === 'story' && (
-              <div className="space-y-2.5 animate-in fade-in duration-200">
-                {/* 4 Heritage pills */}
-                <div className="grid grid-cols-2 gap-1.5 text-[11px]">
-                  <div className="p-1.5 rounded-lg bg-white/60 border border-[#dfd0b7] flex items-center gap-1.5">
-                    <span>🇲🇦</span>
-                    <span className="font-bold text-[#442817]">מרוקו</span>
-                    <span className="text-[10px] text-[#785741]">• אסתר</span>
-                  </div>
-                  <div className="p-1.5 rounded-lg bg-white/60 border border-[#dfd0b7] flex items-center gap-1.5">
-                    <span>🇵🇱</span>
-                    <span className="font-bold text-[#442817]">פולין</span>
-                    <span className="text-[10px] text-[#785741]">• לאה</span>
-                  </div>
-                  <div className="p-1.5 rounded-lg bg-white/60 border border-[#dfd0b7] flex items-center gap-1.5">
-                    <span>🇻🇪</span>
-                    <span className="font-bold text-[#442817]">ונצואלה</span>
-                    <span className="text-[10px] text-[#785741]">• גואסאקאקה</span>
-                  </div>
-                  <div className="p-1.5 rounded-lg bg-white/60 border border-[#dfd0b7] flex items-center gap-1.5">
-                    <span>🇺🇾</span>
-                    <span className="font-bold text-[#442817]">אורוגוואי</span>
-                    <span className="text-[10px] text-[#785741]">• ג'וליאנה</span>
-                  </div>
-                </div>
-
+              <div className="space-y-3 animate-in fade-in duration-200">
                 {/* Story text box */}
-                <div className="p-3 rounded-xl bg-white/65 border border-[#ddcfb6] max-h-[300px] overflow-y-auto space-y-2 text-xs text-[#453023] leading-relaxed">
+                <div className="p-3.5 sm:p-4 rounded-xl bg-white/70 border border-[#ddcfb6] max-h-[380px] overflow-y-auto space-y-3 text-sm sm:text-base text-[#382315] leading-relaxed">
                   {paragraphs.map((p, idx) => (
-                    <p key={idx} className={idx === 0 ? "font-semibold text-[#2f1d12]" : ""}>
+                    <p key={idx} className={idx === 0 ? "font-bold text-[#27160c] text-sm sm:text-base" : "text-sm sm:text-base"}>
                       {p}
                     </p>
                   ))}
-                  <div className="pt-2 text-center text-[#8a4b2a] font-bold text-xs">
+                  <div className="pt-2 text-center text-[#8a4b2a] font-bold text-sm">
                     בתיאבון, ובאהבה גדולה מדור לדור ❤️
                   </div>
                 </div>
 
                 <button
                   onClick={() => setMobileTab('toc')}
-                  className="w-full py-2 rounded-xl bg-[#8a4b2a] text-amber-50 text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs"
+                  className="w-full py-2.5 rounded-xl bg-[#8a4b2a] text-amber-50 text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-xs active:scale-98"
                 >
                   <span>מעבר לתוכן העניינים ולמתכונים</span>
-                  <ChevronLeft className="w-3.5 h-3.5" />
+                  <ChevronLeft className="w-4 h-4" />
                 </button>
               </div>
             )}

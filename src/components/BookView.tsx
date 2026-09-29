@@ -14,7 +14,10 @@ import {
   RotateCw, 
   BookOpen, 
   Edit3, 
-  Camera 
+  Camera,
+  ArrowRight,
+  Video,
+  ExternalLink 
 } from 'lucide-react';
 import { SteamDoodle, LaurelBranch, HeartDoodle, OliveSprig, PaperClip } from './DecorativeIcons';
 import { compressImageFile } from '../utils/imageCompressor';
@@ -93,10 +96,29 @@ export const BookView: React.FC<BookViewProps> = ({
 
   return (
     <div className="relative w-full max-w-6xl mx-auto flex flex-col items-center overflow-x-hidden">
+      {/* Top Bar Navigation: Clear Return to All Recipes */}
+      <div className="w-full flex items-center justify-between mb-3 px-1 sm:px-3">
+        <button
+          onClick={onGoToCover || onOpenTableOfContents}
+          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#5c2a18] hover:bg-[#78361e] text-amber-50 font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95 border border-[#8a4b2a]/60"
+        >
+          <ArrowRight className="w-4 h-4 text-amber-300" />
+          <span>חזרה לכלל המתכונים</span>
+        </button>
+
+        <button
+          onClick={onOpenTableOfContents}
+          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#3f271c] hover:bg-[#4f3224] text-amber-200 text-xs font-semibold border border-amber-900/50 shadow-xs transition-colors"
+        >
+          <BookOpen className="w-3.5 h-3.5 text-amber-300" />
+          <span>תוכן עניינים מהיר</span>
+        </button>
+      </div>
+
       {/* Decorative Hanging Bookmark Ribbon */}
       <div 
         onClick={onGoToCover || onOpenTableOfContents}
-        className="absolute -top-3 sm:-top-5 left-6 sm:left-24 z-30 cursor-pointer group transition-transform hover:translate-y-1 select-none"
+        className="absolute top-10 sm:top-8 left-6 sm:left-24 z-30 cursor-pointer group transition-transform hover:translate-y-1 select-none"
         title="חזרה לשער הספר ולתוכן העניינים"
       >
         <div className="relative w-7 sm:w-10 h-14 sm:h-20 bg-[#9e2a2b] shadow-md rounded-t-sm flex flex-col items-center justify-between pb-2 border-x border-[#7a1f20]">
@@ -143,12 +165,32 @@ export const BookView: React.FC<BookViewProps> = ({
             )}
 
             <div>
+              {/* Desktop Quick Navigation Back Button */}
+              <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#dfd0b7]">
+                <button
+                  onClick={onGoToCover || onOpenTableOfContents}
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#efe4d2] hover:bg-[#e4d4bd] text-[#5a3a25] text-xs font-bold border border-[#ceb99c] transition-colors shadow-2xs"
+                  title="חזרה לכלל המתכונים"
+                >
+                  <ArrowRight className="w-3.5 h-3.5 text-[#8a4b2a]" />
+                  <span>חזרה לכלל המתכונים</span>
+                </button>
+                <span className="text-[11px] font-mono text-[#8a4b2a]/80">מתכון {currentPageIndex + 1} מתוך {totalPages}</span>
+              </div>
+
               {/* Top Page Header & Contributor */}
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#8a4b2a] mb-1">
-                    <ChefHat className="w-3.5 h-3.5 text-[#8a4b2a]" />
-                    <span>{recipe.contributor}</span>
+                  <div className="flex items-center flex-wrap gap-2 text-xs font-semibold uppercase tracking-wider text-[#8a4b2a] mb-1">
+                    <div className="flex items-center gap-1.5">
+                      <ChefHat className="w-3.5 h-3.5 text-[#8a4b2a]" />
+                      <span>{recipe.contributor}</span>
+                    </div>
+                    {recipe.credit && (
+                      <span className="text-[11px] text-[#785942] font-normal normal-case">
+                        • מקור: {recipe.credit}
+                      </span>
+                    )}
                   </div>
                   <h1 className="text-3xl xl:text-4xl font-black font-['Frank_Ruhl_Libre'] text-[#3b2416] tracking-tight leading-tight flex items-center gap-2">
                     <span>{recipe.title}</span>
@@ -158,6 +200,21 @@ export const BookView: React.FC<BookViewProps> = ({
                     <p className="text-sm xl:text-base text-[#684e3b] font-['Assistant'] mt-1 italic">
                       "{recipe.subtitle}"
                     </p>
+                  )}
+                  {recipe.videoUrl && (
+                    <div className="mt-2.5">
+                      <a
+                        href={recipe.videoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#5c2a18]/10 hover:bg-[#5c2a18]/20 text-[#5c2a18] text-xs font-bold border border-[#5c2a18]/30 transition-all shadow-2xs group"
+                        title="פתיחת סרטון ההכנה בטאב חדש"
+                      >
+                        <Video className="w-3.5 h-3.5 text-[#8a4b2a]" />
+                        <span>{recipe.videoTitle || 'צפייה בסרטון ההכנה ↗'}</span>
+                        <ExternalLink className="w-3 h-3 text-[#8a4b2a]/70 group-hover:translate-x-0.5 transition-transform" />
+                      </a>
+                    </div>
                   )}
                 </div>
 
@@ -231,6 +288,7 @@ export const BookView: React.FC<BookViewProps> = ({
                     <img 
                       src={effectiveImageUrl} 
                       alt={recipe.title}
+                      referrerPolicy="no-referrer"
                       className="w-full h-full object-contain drop-shadow-md"
                       onError={(e) => {
                         const fallback = CANONICAL_RECIPE_IMAGES[recipe.id];
@@ -280,16 +338,46 @@ export const BookView: React.FC<BookViewProps> = ({
                       key={idx} 
                       className="flex items-baseline justify-between text-xs xl:text-sm py-1 border-b border-dotted border-[#e2d5bd]"
                     >
+                      <span className="font-mono font-bold text-[#8a4b2a] shrink-0 pl-2 dir-rtl">
+                        {ing.amount}
+                      </span>
                       <div className="flex items-center gap-2 font-['Assistant'] text-[#3a281c]">
                         <span className="text-base select-none">{ing.icon || '•'}</span>
                         <span className="font-medium">{ing.item}</span>
                       </div>
-                      <span className="font-mono font-bold text-[#8a4b2a] shrink-0 pr-2">
-                        {ing.amount}
-                      </span>
                     </div>
                   ))}
                 </div>
+
+                {/* Family Memory directly under Ingredients */}
+                {recipe.familyMemory ? (
+                  <div className="relative p-3.5 rounded-lg bg-[#f7ebe1] border border-[#e2cdbe] shadow-2xs mt-4">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-xs font-bold text-[#8a4b2a] flex items-center gap-1.5">
+                        <Heart className="w-3.5 h-3.5 fill-[#8a4b2a]" />
+                        זיכרון משפחתי:
+                      </span>
+                      <span className="text-[11px] text-[#8e7362] font-serif">מסורת ביתית</span>
+                    </div>
+                    <p className="text-xs xl:text-sm text-[#553a27] italic font-['Assistant'] leading-relaxed">
+                      "{recipe.familyMemory}"
+                    </p>
+                  </div>
+                ) : recipe.id === 'candied-orange-peels' && (
+                  <div 
+                    onClick={() => onEditRecipe && onEditRecipe(recipe)}
+                    className="relative p-3.5 rounded-lg border-2 border-dashed border-[#c5b095] bg-white/40 hover:bg-white/70 transition-colors cursor-pointer text-center group mt-4 shadow-2xs"
+                    title="לחצו להוספת זיכרון משפחתי"
+                  >
+                    <div className="text-xs font-bold text-[#8a4b2a] flex items-center justify-center gap-1.5 mb-1">
+                      <Heart className="w-3.5 h-3.5 text-[#8a4b2a]" />
+                      <span>זיכרון משפחתי – מקום פתוח לטקסט</span>
+                    </div>
+                    <p className="text-xs text-[#8c6f5a] font-['Assistant'] italic">
+                      (לחצו כאן לעריכה וכתיבת הזיכרון המשפחתי כשהטקסט יהיה מוכן)
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -334,11 +422,6 @@ export const BookView: React.FC<BookViewProps> = ({
                       <p className="text-xs xl:text-sm leading-relaxed text-[#2f2015] font-['Assistant']">
                         {st.text}
                       </p>
-                      {st.note && (
-                        <span className="inline-block mt-0.5 text-[11px] text-[#7d5639] font-['Caveat'] text-sm">
-                          * {st.note}
-                        </span>
-                      )}
                     </div>
                   </div>
                 ))}
@@ -362,19 +445,27 @@ export const BookView: React.FC<BookViewProps> = ({
                 </div>
               )}
 
-              {/* Family Memory Sticky Note */}
-              {recipe.familyMemory && (
-                <div className="relative p-3.5 rounded-lg bg-[#f7ebe1] border border-[#e2cdbe] shadow-2xs mt-3 transform rotate-1">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-bold text-[#8a4b2a] flex items-center gap-1">
-                      <Heart className="w-3 h-3 fill-[#8a4b2a]" />
-                      זיכרון משפחתי:
-                    </span>
-                    <span className="text-[10px] text-[#8e7362] font-serif">מסורת ביתית</span>
+              {/* Grandma Esther's Dictated Voice Note Sticky */}
+              {recipe.grandmaVoiceNote && (
+                <div className="relative mt-5 p-4 rounded-xl bg-[#fffde8] border-2 border-[#e7dea9] shadow-md text-[#3b2b18]">
+                  <div className="absolute -top-3 right-6 px-3 py-0.5 bg-[#e08e6d] text-amber-50 text-[10px] font-bold rounded-sm shadow-2xs rotate-1 tracking-wider uppercase">
+                    סבתא אסתר במטבח
                   </div>
-                  <p className="text-xs text-[#553a27] italic font-['Assistant'] leading-relaxed">
-                    "{recipe.familyMemory}"
+                  <div className="pb-1.5 flex items-center justify-between border-b border-[#ebe1af] mb-2.5">
+                    <div className="font-bold font-['Frank_Ruhl_Libre'] text-sm sm:text-base text-[#7c3f1d] flex items-center gap-1.5">
+                      <span>📜</span>
+                      <span>ככה סבתא אסתר מעבירה מתכונים – בהצלחה!! 😂</span>
+                    </div>
+                    <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-[#f5eab5] text-[#6d4611]">
+                      אותנטי מילה במילה
+                    </span>
+                  </div>
+                  <p className="text-xs xl:text-sm leading-relaxed font-['Assistant'] text-[#3a2818] bg-white/70 p-3 rounded-lg border border-[#eee4b9] whitespace-pre-line italic">
+                    "{recipe.grandmaVoiceNote}"
                   </p>
+                  <div className="mt-2 text-left text-xs font-['Caveat'] text-[#8a4b2a] font-bold">
+                    — מוקלט באהבה מסבתא אסתר ❤️ בתיאבון!
+                  </div>
                 </div>
               )}
             </div>
@@ -420,16 +511,46 @@ export const BookView: React.FC<BookViewProps> = ({
             )}
 
             <div>
+              {/* Mobile Back to All Recipes Button */}
+              <button
+                onClick={onGoToCover || onOpenTableOfContents}
+                className="w-full mb-3 py-2 px-3 rounded-xl bg-[#5c2a18] hover:bg-[#73351f] text-amber-50 text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-sm transition-all active:scale-98 border border-[#7a3720]"
+              >
+                <ArrowRight className="w-4 h-4 text-amber-300" />
+                <span>חזרה לכלל המתכונים</span>
+              </button>
+
               {/* Recipe Title & Contributor */}
               <div className="flex items-start justify-between gap-2 mb-2">
                 <div className="flex-1">
-                  <div className="text-[11px] font-bold text-[#8a4b2a] flex items-center gap-1 mb-0.5">
-                    <ChefHat className="w-3 h-3 text-[#8a4b2a]" />
-                    <span>{recipe.contributor}</span>
+                  <div className="text-[11px] font-bold text-[#8a4b2a] flex items-center flex-wrap gap-1 mb-0.5">
+                    <div className="flex items-center gap-1">
+                      <ChefHat className="w-3 h-3 text-[#8a4b2a]" />
+                      <span>{recipe.contributor}</span>
+                    </div>
+                    {recipe.credit && (
+                      <span className="text-[10px] text-[#785942] font-normal">
+                        • {recipe.credit}
+                      </span>
+                    )}
                   </div>
                   <h1 className="text-2xl font-bold font-['Frank_Ruhl_Libre'] text-[#3b2416] leading-snug">
                     {recipe.title}
                   </h1>
+                  {recipe.videoUrl && (
+                    <div className="mt-1.5">
+                      <a
+                        href={recipe.videoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#5c2a18]/10 text-[#5c2a18] text-[11px] font-bold border border-[#5c2a18]/30 transition-all shadow-2xs"
+                        title="פתיחת סרטון ההכנה בטאב חדש"
+                      >
+                        <Video className="w-3 h-3 text-[#8a4b2a]" />
+                        <span>{recipe.videoTitle || 'לסרטון ההכנה ↗'}</span>
+                      </a>
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex items-center gap-1">
@@ -460,46 +581,46 @@ export const BookView: React.FC<BookViewProps> = ({
               </div>
 
               {recipe.subtitle && (
-                <p className="text-xs text-[#684e3b] italic mb-3">
+                <p className="text-xs sm:text-sm text-[#684e3b] italic mb-3">
                   "{recipe.subtitle}"
                 </p>
               )}
 
               {/* Quick Info bar */}
-              <div className="flex flex-wrap items-center justify-between gap-1 text-[11px] py-1.5 px-2 bg-white/60 rounded-lg border border-[#dfd0b7] mb-3 text-[#583f2e]">
+              <div className="flex flex-wrap items-center justify-between gap-1 text-xs sm:text-sm py-2 px-2.5 bg-white/70 rounded-lg border border-[#dfd0b7] mb-3 text-[#4c3524] font-medium">
                 <span>⏱️ הכנה: {recipe.prepTime}</span>
                 <span>🔥 בישול: {recipe.cookTime}</span>
-                <span className="truncate max-w-[140px]">👥 {recipe.servings}</span>
+                <span className="truncate max-w-[150px]">👥 {recipe.servings}</span>
               </div>
 
-              {/* Physical Bookmark Tabs (NOT landing page buttons, but notebook tabs!) */}
+              {/* Physical Bookmark Tabs */}
               <div className="grid grid-cols-2 gap-2 mb-3">
                 <button
                   onClick={() => setMobileTab('ingredients')}
-                  className={`py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 border ${
+                  className={`py-2 px-3 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 border ${
                     mobileTab === 'ingredients'
                       ? 'bg-[#8a4b2a] text-amber-50 border-[#8a4b2a] shadow-xs'
                       : 'bg-[#ebe0cb] text-[#5a3f2b] border-[#d8c3a5] hover:bg-[#dfd0b7]'
                   }`}
                 >
-                  <span>🥘</span>
-                  <span>קדירה ומצרכים</span>
+                  <span>🥗</span>
+                  <span>מצרכים</span>
                 </button>
 
                 <button
                   onClick={() => setMobileTab('instructions')}
-                  className={`py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 border ${
+                  className={`py-2 px-3 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-1.5 border ${
                     mobileTab === 'instructions'
                       ? 'bg-[#8a4b2a] text-amber-50 border-[#8a4b2a] shadow-xs'
                       : 'bg-[#ebe0cb] text-[#5a3f2b] border-[#d8c3a5] hover:bg-[#dfd0b7]'
                   }`}
                 >
                   <span>📜</span>
-                  <span>אופן ההכנה והסוד</span>
+                  <span>אופן ההכנה</span>
                 </button>
               </div>
 
-              {/* TAB 1: Ingredients & Watercolor Pot */}
+              {/* TAB 1: Ingredients & Watercolor Pot + Family Memory */}
               {mobileTab === 'ingredients' && (
                 <div className="space-y-3 animate-in fade-in duration-200">
                   {/* Watercolor pot centered with steam */}
@@ -511,6 +632,7 @@ export const BookView: React.FC<BookViewProps> = ({
                       <img 
                         src={effectiveImageUrl} 
                         alt={recipe.title} 
+                        referrerPolicy="no-referrer"
                         className="w-full h-full object-contain"
                         onError={(e) => {
                           const fallback = CANONICAL_RECIPE_IMAGES[recipe.id];
@@ -537,62 +659,109 @@ export const BookView: React.FC<BookViewProps> = ({
                     </div>
                   </div>
 
-                  {/* Ingredients list */}
-                  <div className="bg-white/50 p-3 rounded-xl border border-[#ded0b8]">
-                    <div className="text-xs font-bold text-[#422919] mb-2 flex items-center justify-between">
+                  {/* Ingredients list with larger font */}
+                  <div className="bg-white/60 p-3.5 rounded-xl border border-[#ded0b8]">
+                    <div className="text-sm font-bold text-[#422919] mb-2.5 flex items-center justify-between">
                       <span>רשימת מצרכים:</span>
-                      <span className="text-[10px] text-[#735946]">{recipe.ingredients.length} פריטים</span>
+                      <span className="text-xs text-[#735946]">{recipe.ingredients.length} פריטים</span>
                     </div>
-                    <div className="space-y-1.5">
+                    <div className="space-y-2">
                       {recipe.ingredients.map((ing, idx) => (
-                        <div key={idx} className="flex items-center justify-between text-xs py-0.5 border-b border-dotted border-[#e6d8c2]">
-                          <div className="flex items-center gap-1.5 text-[#3b271b]">
-                            <span>{ing.icon || '•'}</span>
-                            <span>{ing.item}</span>
-                          </div>
-                          <span className="font-mono font-bold text-[#8a4b2a] text-[11px] shrink-0">
+                        <div key={idx} className="flex items-center justify-between text-sm py-1 border-b border-dotted border-[#e6d8c2]">
+                          <span className="font-mono font-bold text-[#8a4b2a] text-xs sm:text-sm shrink-0 pl-2 dir-rtl">
                             {ing.amount}
                           </span>
+                          <div className="flex items-center gap-2 text-[#3b271b]">
+                            <span className="text-base select-none">{ing.icon || '•'}</span>
+                            <span className="font-medium text-sm sm:text-base">{ing.item}</span>
+                          </div>
                         </div>
                       ))}
                     </div>
                   </div>
+
+                  {/* Family Memory on Mobile (Moved right below Ingredients) */}
+                  {recipe.familyMemory ? (
+                    <div className="p-3.5 rounded-xl bg-[#f7ebe1] border border-[#e2cdbe] text-sm text-[#4d3321] shadow-2xs">
+                      <div className="text-xs sm:text-sm font-bold text-[#8a4b2a] flex items-center gap-1.5 mb-1">
+                        <Heart className="w-3.5 h-3.5 fill-[#8a4b2a]" />
+                        <span>זיכרון משפחתי:</span>
+                      </div>
+                      <p className="text-xs sm:text-sm leading-relaxed italic font-['Assistant']">
+                        "{recipe.familyMemory}"
+                      </p>
+                    </div>
+                  ) : recipe.id === 'candied-orange-peels' && (
+                    <div 
+                      onClick={() => onEditRecipe && onEditRecipe(recipe)}
+                      className="p-3 rounded-xl border-2 border-dashed border-[#c5b095] bg-white/40 hover:bg-white/70 transition-colors cursor-pointer text-center group shadow-2xs"
+                      title="לחצו להוספת זיכרון משפחתי"
+                    >
+                      <div className="text-xs font-bold text-[#8a4b2a] flex items-center justify-center gap-1.5 mb-0.5">
+                        <Heart className="w-3.5 h-3.5 text-[#8a4b2a]" />
+                        <span>זיכרון משפחתי – מקום פתוח לטקסט</span>
+                      </div>
+                      <p className="text-[11px] text-[#8c6f5a] font-['Assistant'] italic">
+                        (לחצו כאן לעריכה וכתיבת הזיכרון כשהטקסט יהיה מוכן)
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
 
               {/* TAB 2: Instructions & Grandma's secret note */}
               {mobileTab === 'instructions' && (
-                <div className="space-y-3 animate-in fade-in duration-200">
-                  <div className="space-y-2.5">
+                <div className="space-y-3.5 animate-in fade-in duration-200">
+                  <div className="space-y-3">
                     {recipe.steps.map((st, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5">
-                        <div className="w-5 h-5 rounded-full bg-[#ebdcc0] border border-[#c5b094] text-[#703f25] font-serif font-black flex items-center justify-center text-[10px] shrink-0 mt-0.5">
+                      <div key={idx} className="flex items-start gap-3">
+                        <div className="w-6 h-6 rounded-full bg-[#ebdcc0] border border-[#c5b094] text-[#703f25] font-serif font-black flex items-center justify-center text-xs shrink-0 mt-0.5">
                           {idx + 1}
                         </div>
-                        <p className="text-xs leading-relaxed text-[#2f2015] font-['Assistant']">
-                          {st.text}
-                        </p>
+                        <div className="flex-1">
+                          <p className="text-sm sm:text-base leading-relaxed text-[#26170d] font-['Assistant']">
+                            {st.text}
+                          </p>
+                        </div>
                       </div>
                     ))}
                   </div>
 
-                  {/* Grandma's Secret Note on Mobile (Clean, no overlapping tape) */}
+                  {/* Grandma's Secret Note on Mobile */}
                   {recipe.secretTip && (
-                    <div className="relative mt-3 p-3 rounded-lg bg-[#fff8db] border border-[#e4d49a] shadow-xs">
-                      <div className="text-[11px] font-bold text-[#734b17] mb-1 flex items-center gap-1">
+                    <div className="relative mt-3 p-3.5 rounded-xl bg-[#fff8db] border border-[#e4d49a] shadow-xs">
+                      <div className="text-xs sm:text-sm font-bold text-[#734b17] mb-1.5 flex items-center gap-1.5">
                         <span>💡</span>
                         <span>הסוד של סבתא:</span>
                       </div>
-                      <p className="text-xs leading-relaxed text-[#46341d]">
+                      <p className="text-xs sm:text-sm leading-relaxed text-[#3f2e18]">
                         {recipe.secretTip}
                       </p>
                     </div>
                   )}
 
-                  {/* Family Memory on Mobile */}
-                  {recipe.familyMemory && (
-                    <div className="p-2.5 rounded-lg bg-[#f7ebe1] border border-[#e2cdbe] text-xs text-[#553a27] italic">
-                      ❤️ "{recipe.familyMemory}"
+                  {/* Grandma Esther's Dictated Voice Note Sticky on Mobile */}
+                  {recipe.grandmaVoiceNote && (
+                    <div className="relative mt-5 p-4 rounded-xl bg-[#fffde8] border-2 border-[#e7dea9] shadow-md text-[#3b2b18] transform -rotate-[0.5deg]">
+                      <div className="absolute -top-3 right-4 px-2.5 py-0.5 bg-[#e08e6d] text-amber-50 text-[10px] font-bold rounded-sm shadow-2xs rotate-1 tracking-wider uppercase flex items-center gap-1">
+                        <span>📌</span>
+                        <span>הפתק של סבתא אסתר</span>
+                      </div>
+                      <div className="pt-1 pb-1.5 flex items-center justify-between border-b border-[#ebe1af] mb-2">
+                        <div className="font-bold font-['Frank_Ruhl_Libre'] text-sm text-[#7c3f1d] flex items-center gap-1.5">
+                          <span className="text-base">😂</span>
+                          <span>ככה סבתא אסתר מעבירה מתכונים – בהצלחה!! 😂</span>
+                        </div>
+                        <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-[#f5eab5] text-[#6d4611] border border-[#e8dba0]">
+                          אותנטי מילה במילה
+                        </span>
+                      </div>
+                      <p className="text-xs sm:text-sm leading-relaxed font-['Assistant'] text-[#3a2818] bg-white/75 p-3 rounded-lg border border-[#eee4b9] whitespace-pre-line italic">
+                        "{recipe.grandmaVoiceNote}"
+                      </p>
+                      <div className="mt-1.5 text-left text-xs font-['Caveat'] text-[#8a4b2a] font-bold">
+                        — מוקלט באהבה מסבתא אסתר ❤️ בתיאבון!
+                      </div>
                     </div>
                   )}
                 </div>
@@ -608,9 +777,13 @@ export const BookView: React.FC<BookViewProps> = ({
                 <Sparkles className="w-3 h-3" />
                 מצב בישול
               </button>
-              <span className="font-mono font-bold text-[11px] px-2 py-0.5 rounded bg-[#ebe0cb] text-[#553b27]">
-                עמוד {currentPageIndex + 1}
-              </span>
+              <button
+                onClick={onGoToCover || onOpenTableOfContents}
+                className="font-mono font-bold text-[11px] px-2.5 py-1 rounded-lg bg-[#efe4d2] hover:bg-[#e4d4bd] text-[#553b27] border border-[#d3c2a6] flex items-center gap-1"
+              >
+                <BookOpen className="w-3 h-3 text-[#8a4b2a]" />
+                <span>עמוד {currentPageIndex + 1} • לכל המתכונים</span>
+              </button>
             </div>
           </div>
         </div>
@@ -633,14 +806,14 @@ export const BookView: React.FC<BookViewProps> = ({
           {/* Center page indicator & table of contents shortcut */}
           <button
             onClick={onGoToCover || onOpenTableOfContents}
-            className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-[#3d251a] hover:bg-[#4d3022] text-amber-200 text-xs sm:text-sm transition-colors border border-amber-950/80 shrink-0"
-            title="מעבר לשער ולתוכן עניינים"
+            className="flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-[#5c2a18] hover:bg-[#73351f] text-amber-100 text-xs sm:text-sm font-bold transition-all border border-amber-800/70 shadow-md active:scale-95 shrink-0"
+            title="חזרה לכלל המתכונים ולשער הספר"
           >
-            <BookOpen className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400" />
-            <span className="font-mono font-bold text-amber-300 text-xs sm:text-sm">
-              עמ' {currentPageIndex + 1} / {totalPages}
+            <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300" />
+            <span>לכל המתכונים</span>
+            <span className="font-mono text-[11px] sm:text-xs text-amber-300/80 mr-1">
+              ({currentPageIndex + 1}/{totalPages})
             </span>
-            <span className="hidden sm:inline text-amber-200/70 text-xs">(תוכן)</span>
           </button>
 
           {/* Next Page (RTL: left button moves to next page) */}

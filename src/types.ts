@@ -29,6 +29,10 @@ export interface Recipe {
   imageAlt?: string;
   isFavorite?: boolean;
   notes?: string;
+  grandmaVoiceNote?: string;
+  videoUrl?: string;
+  videoTitle?: string;
+  credit?: string;
 }
 
 export type BookThemeId = 'illustrated' | 'notebook' | 'rustic' | 'heritage';

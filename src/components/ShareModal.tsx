@@ -41,11 +41,15 @@ export const ShareModal: React.FC<ShareModalProps> = ({
       msg += `\n💡 *הטיפ של סבתא:* ${recipe.secretTip}\n`;
     }
 
+    if (recipe.grandmaVoiceNote) {
+      msg += `\n📜 *ככה סבתא אסתר מעבירה מתכונים – בהצלחה!! 😂*\n"${recipe.grandmaVoiceNote}"\n`;
+    }
+
     if (recipe.familyMemory) {
       msg += `\n❤️ *זיכרון משפחתי:* ${recipe.familyMemory}\n`;
     }
 
-    msg += `\n📚 נשלח מתוך ספר המתכונים המשפחתי הדיגיטלי`;
+    msg += `\n📚 נשלח מתוך ספר המתכונים שלנו`;
     return msg;
   };
 

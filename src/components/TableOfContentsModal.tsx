@@ -154,7 +154,7 @@ export const TableOfContentsModal: React.FC<TableOfContentsModalProps> = ({
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg overflow-hidden border border-[#cfba9e] shrink-0 shadow-2xs">
-                      <img src={r.imageUrl} alt={r.title} className="w-full h-full object-cover" />
+                      <img src={r.imageUrl} alt={r.title} referrerPolicy="no-referrer" className="w-full h-full object-cover" />
                     </div>
                     <div>
                       <div className="text-sm font-semibold flex items-center gap-2">

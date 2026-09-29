@@ -138,13 +138,15 @@ export const CookingModeModal: React.FC<CookingModeModalProps> = ({ recipe, onCl
                       : 'bg-[#312a23] border-[#473c33] text-[#f2ece2] hover:bg-[#3d332b]'
                   }`}
                 >
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-base">{ing.icon || '🧂'}</span>
-                    <span className="text-sm font-medium">{ing.item}</span>
-                  </div>
-                  <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-black/20 text-amber-300">
+                  {/* Right Column: Amount */}
+                  <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-black/20 text-amber-300 dir-rtl shrink-0">
                     {ing.amount}
                   </span>
+                  {/* Left Column: Item */}
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <span className="text-base shrink-0">{ing.icon || '🧂'}</span>
+                    <span className="text-sm font-medium break-words">{ing.item}</span>
+                  </div>
                 </div>
               );
             })}

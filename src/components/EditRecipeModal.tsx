@@ -271,7 +271,7 @@ export const EditRecipeModal: React.FC<EditRecipeModalProps> = ({ recipe, onSave
                       : 'border-[#dfd0b7] hover:border-[#bda586] bg-white/50'
                   }`}
                 >
-                  <img src={ill.url} alt={ill.label} className="w-full h-14 object-cover rounded-lg mb-1" />
+                  <img src={ill.url} alt={ill.label} referrerPolicy="no-referrer" className="w-full h-14 object-cover rounded-lg mb-1" />
                   <span className="text-[10px] font-medium text-[#463122] block truncate">{ill.label}</span>
                 </div>
               ))}

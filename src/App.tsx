@@ -16,6 +16,7 @@ import { CookingModeModal } from './components/CookingModeModal';
 import { ShareModal } from './components/ShareModal';
 import { BookIntroModal } from './components/BookIntroModal';
 import { MobileLinkModal } from './components/MobileLinkModal';
+import { CleanGalleryView } from './components/CleanGalleryView';
 import { saveCustomImage, loadCustomImagesMap } from './utils/storage';
 import { 
   BookOpen, 
@@ -29,13 +30,16 @@ import {
   RotateCcw,
   Edit2,
   Check,
-  Smartphone
+  Smartphone,
+  LayoutGrid,
+  Camera
 } from 'lucide-react';
 import { LaurelBranch } from './components/DecorativeIcons';
 
-const STORAGE_RECIPES_KEY = 'family_recipe_book_recipes_v6_restored';
-const STORAGE_THEME_KEY = 'family_recipe_book_theme_v6';
-const STORAGE_TITLE_KEY = 'family_recipe_book_title_v6';
+const STORAGE_RECIPES_KEY = 'family_recipe_book_recipes_v13_focaccia_cakes_salads';
+const STORAGE_THEME_KEY = 'family_recipe_book_theme_v13';
+const STORAGE_TITLE_KEY = 'family_recipe_book_title_v13';
+const STORAGE_VIEW_FORMAT_KEY = 'family_recipe_book_view_format_v1';
 
 const DEMO_RECIPES_TO_PURGE = new Set([
   'flan-caramel',
@@ -65,13 +69,16 @@ export default function App() {
             const missing = INITIAL_RECIPES.filter(r => !existingIds.has(r.id));
             const combined = [...cleaned, ...missing];
             return combined.map((r: Recipe) => {
-              if (!r.imageUrl || r.imageUrl.startsWith('/src/assets') || r.imageUrl.startsWith('src/assets') || r.imageUrl.includes('localhost')) {
-                const canonical = CANONICAL_RECIPE_IMAGES[r.id];
-                if (canonical) {
-                  return { ...r, imageUrl: canonical };
-                }
+              const canonical = CANONICAL_RECIPE_IMAGES[r.id];
+              const initial = INITIAL_RECIPES.find(init => init.id === r.id);
+              let updated = { ...r };
+              if (initial && initial.grandmaVoiceNote) {
+                updated.grandmaVoiceNote = initial.grandmaVoiceNote;
               }
-              return r;
+              if (canonical && (!r.imageUrl || !r.imageUrl.startsWith('data:') || r.imageUrl.startsWith('/images/') || r.imageUrl.startsWith('/src/assets') || r.imageUrl.includes('localhost'))) {
+                updated.imageUrl = canonical;
+              }
+              return updated;
             });
           }
         }
@@ -95,14 +102,18 @@ export default function App() {
   const [familyBookTitle, setFamilyBookTitle] = useState<string>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_TITLE_KEY);
-      if (saved) return saved;
+      if (saved && saved !== 'ספר המתכונים של משפחתנו' && saved !== 'ספר המתכונים המשפחתי') {
+        return saved;
+      }
     } catch (e) {}
-    return 'ספר המתכונים של משפחתנו';
+    return 'ספר המתכונים שלנו';
   });
 
   const [isEditingTitle, setIsEditingTitle] = useState(false);
-  // Default to -1 so the book opens on the Cover Page with the story and Table of Contents!
-  const [currentRecipeIndex, setCurrentRecipeIndex] = useState(-1);
+  // Selected Recipe ID for detail view in the clean gallery
+  const [selectedRecipeId, setSelectedRecipeId] = useState<string | null>(null);
+  const [mainCategory, setMainCategory] = useState<string>('all');
+  const [currentRecipeIndex, setCurrentRecipeIndex] = useState(0);
 
   // Modals state
   const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
@@ -134,13 +145,16 @@ export default function App() {
       const existingIds = new Set(filtered.map(r => r.id));
       const missing = INITIAL_RECIPES.filter(r => !existingIds.has(r.id));
       return [...filtered, ...missing].map(r => {
-        if (!r.imageUrl || r.imageUrl.startsWith('/src/assets') || r.imageUrl.startsWith('src/assets') || r.imageUrl.includes('localhost')) {
-          const canonical = CANONICAL_RECIPE_IMAGES[r.id];
-          if (canonical) {
-            return { ...r, imageUrl: canonical };
-          }
+        const canonical = CANONICAL_RECIPE_IMAGES[r.id];
+        const initial = INITIAL_RECIPES.find(init => init.id === r.id);
+        let updated = { ...r };
+        if (initial && initial.grandmaVoiceNote) {
+          updated.grandmaVoiceNote = initial.grandmaVoiceNote;
         }
-        return r;
+        if (canonical && (!r.imageUrl || !r.imageUrl.startsWith('data:') || r.imageUrl.startsWith('/images/') || r.imageUrl.startsWith('/src/assets') || r.imageUrl.includes('localhost'))) {
+          updated.imageUrl = canonical;
+        }
+        return updated;
       });
     });
   }, []);
@@ -292,47 +306,22 @@ export default function App() {
           </div>
 
           {/* Quick Action Navigation Buttons */}
-          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
-
-            {/* Book Cover / Story & TOC Button */}
-            <button
-              onClick={() => setCurrentRecipeIndex(-1)}
-              className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1 transition-all border shadow-xs ${
-                currentRecipeIndex === -1
-                  ? 'bg-[#8a4b2a] text-amber-50 border-amber-600'
-                  : 'bg-[#523321] hover:bg-[#68412a] text-amber-100 border-[#784c31]'
-              }`}
-              title="שער הספר, הסיפור ותוכן העניינים"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-              <span className="hidden xs:inline sm:inline">שער ותוכן</span>
-            </button>
-
-            {/* Mobile Link & QR Button (hidden on narrow screens to prevent overflow) */}
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            {/* Mobile Link & QR Button */}
             <button
               onClick={() => setIsMobileLinkModalOpen(true)}
-              className="hidden md:flex px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#39261c] hover:bg-[#4d3427] text-amber-200 text-xs sm:text-sm font-semibold items-center gap-1.5 transition-colors border border-[#5a3c2c]"
-              title="פתיחת הספר בנייד ובסמארטפון (סריקת QR או קישור)"
+              className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#39261c] hover:bg-[#4d3427] text-amber-200 text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition-colors border border-[#5a3c2c]"
+              title="קישור לספר וסריקת QR"
             >
               <Smartphone className="w-4 h-4 text-amber-400" />
-              <span className="hidden lg:inline">תצוגה בנייד</span>
-            </button>
-            
-            {/* Theme Picker Button */}
-            <button
-              onClick={() => setIsThemeModalOpen(true)}
-              className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-[#422c20] hover:bg-[#573b2c] text-amber-200 text-xs sm:text-sm font-semibold flex items-center gap-1 transition-colors border border-[#5a3c2c] shadow-xs"
-              title="בחירת סגנון ספר"
-            >
-              <Palette className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
-              <span className="hidden md:inline">עיצוב</span>
+              <span className="hidden sm:inline">קישור לספר</span>
             </button>
 
             {/* Table of Contents Search Button */}
             <button
               onClick={() => setIsTocModalOpen(true)}
               className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-[#422c20] hover:bg-[#573b2c] text-amber-200 text-xs sm:text-sm font-semibold flex items-center gap-1 transition-colors border border-[#5a3c2c]"
-              title="חיפוש מתכון"
+              title="חיפוש מתכון ורשימת מתכונים"
             >
               <Search className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
               <span className="hidden sm:inline">חיפוש</span>
@@ -341,55 +330,35 @@ export default function App() {
             {/* Add Recipe Button */}
             <button
               onClick={() => setIsAddRecipeModalOpen(true)}
-              className="px-2 sm:px-4 py-1 sm:py-1.5 rounded-xl bg-[#8a4b2a] hover:bg-[#9e542d] text-amber-50 text-xs sm:text-sm font-bold flex items-center gap-1 transition-colors shadow-md active:scale-95 shrink-0"
+              className="px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-xl bg-[#8a4b2a] hover:bg-[#9e542d] text-amber-50 text-xs sm:text-sm font-bold flex items-center gap-1 transition-colors shadow-md active:scale-95 shrink-0"
               title="הוספת מתכון חדש"
             >
               <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              <span className="hidden sm:inline">מתכון חדש</span>
-              <span className="sm:hidden">חדש</span>
+              <span>מתכון חדש</span>
             </button>
           </div>
         </div>
       </header>
 
-      {/* ---------------- MAIN RECIPE BOOK READING AREA ---------------- */}
-      <main className="flex-1 py-2 sm:py-8 px-1 sm:px-4 flex items-center justify-center w-full max-w-full overflow-x-hidden">
-        {currentRecipeIndex === -1 ? (
-          <BookCoverPage
-            bookTitle={familyBookTitle}
-            recipes={recipes}
-            theme={currentTheme}
-            onSelectRecipe={(index) => setCurrentRecipeIndex(index)}
-            onNextPage={() => setCurrentRecipeIndex(0)}
-            onOpenAddRecipe={() => setIsAddRecipeModalOpen(true)}
-          />
-        ) : (
-          <BookView
-            recipe={currentRecipe}
-            currentPageIndex={currentRecipeIndex}
-            totalPages={recipes.length}
-            theme={currentTheme}
-            onNextPage={handleNextPage}
-            onPrevPage={handlePrevPage}
-            onGoToCover={() => setCurrentRecipeIndex(-1)}
-            onToggleFavorite={handleToggleFavorite}
-            onOpenShare={(rec) => setShareRecipe(rec)}
-            onOpenCookingMode={(rec) => {
-              setCurrentRecipeIndex(recipes.findIndex(r => r.id === rec.id));
-              setIsCookingModeOpen(true);
-            }}
-            onOpenTableOfContents={() => setIsTocModalOpen(true)}
-            onEditRecipe={(rec) => setEditingRecipe(rec)}
-            onUpdateRecipeImage={handleUpdateRecipeImage}
-          />
-        )}
-      </main>
+      {/* ---------------- MAIN RECIPE GALLERY AREA ---------------- */}
+      <CleanGalleryView
+        recipes={recipes}
+        bookTitle={familyBookTitle}
+        selectedRecipeId={selectedRecipeId}
+        onSelectRecipeId={setSelectedRecipeId}
+        activeCategory={mainCategory}
+        onCategoryChange={setMainCategory}
+        onToggleFavorite={handleToggleFavorite}
+        onOpenShare={(rec) => setShareRecipe(rec)}
+        onEditRecipe={(rec) => setEditingRecipe(rec)}
+        onAddRecipe={() => setIsAddRecipeModalOpen(true)}
+      />
 
       {/* ---------------- BOTTOM FOOTER ---------------- */}
       <footer className="py-4 px-4 border-t border-[#3b271d] bg-[#1c1512] text-center text-xs text-[#826a5b] no-print">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <span>ספר המתכונים המשפחתי</span>
+            <span>ספר המתכונים שלנו</span>
             <span>•</span>
             <span>נבנה לשיתוף ושימור הזיכרונות של הבית</span>
           </div>
@@ -442,6 +411,12 @@ export default function App() {
           currentIndex={currentRecipeIndex}
           onSelectRecipe={(idx) => {
             setCurrentRecipeIndex(idx);
+            if (recipes[idx]) {
+              setSelectedRecipeId(recipes[idx].id);
+              window.scrollTo(0, 0);
+              document.documentElement.scrollTop = 0;
+              document.body.scrollTop = 0;
+            }
           }}
           onClose={() => setIsTocModalOpen(false)}
           onOpenBookIntro={() => setIsIntroModalOpen(true)}

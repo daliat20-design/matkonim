@@ -1,23 +1,24 @@
 import { Recipe, BookTheme } from '../types';
 
-// Recipe illustrations
-import almoroniaImg from '../assets/images/almoronia_chicken_wings_1789740589927.jpg';
-import almondPuddingImg from '../assets/images/spanish_almond_budin_1789740082567.jpg';
-import guasacacaImg from '../assets/images/guasacaca_avocado_sauce_1789837881951.jpg';
-import choppedLiverImg from '../assets/images/chopped_liver_rustic_1789736990597.jpg';
-import pomeloSaladImg from '../assets/images/pomelo_fresh_salad_1789737046460.jpg';
-import candiedPeelsImg from '../assets/images/candied_orange_peels_1789737013635.jpg';
-import estherKugelImg from '../assets/images/savta_esther_kugel_1789838435747.jpg';
-
-// Canonical imported images for reliable mobile and production bundling
+// Canonical image paths with user-provided Postimages URLs for rock-solid loading on all devices and mobile browsers
 export const CANONICAL_RECIPE_IMAGES: Record<string, string> = {
-  'guasacaca-sauce': guasacacaImg,
-  'chopped-liver': choppedLiverImg,
-  'pomelo-salad': pomeloSaladImg,
-  'almoronia-chicken-wings': almoroniaImg,
-  'spanish-almond-budin': almondPuddingImg,
-  'candied-orange-peels': candiedPeelsImg,
-  'savta-esther-kugel': estherKugelImg,
+  'guasacaca-sauce': 'https://i.postimg.cc/KvmnRHBg/images.jpg',
+  'chopped-liver': 'https://i.postimg.cc/7hkS1BRQ/Adobe-Stock-173581796.jpg',
+  'pomelo-salad': 'https://i.postimg.cc/LsGt543J/images-(1).jpg',
+  'almoronia-chicken-wings': 'https://i.postimg.cc/q76KPVHN/Almoronia.jpg',
+  'spanish-almond-budin': 'https://i.postimg.cc/wTkQ2pgJ/Pudin-de-Almendras2.jpg',
+  'candied-orange-peels': 'https://i.postimg.cc/q7GtVkZf/9ac8bc782ac3f62f6bf88dc0ff99a2a0-scaled-510x340.jpg',
+  'savta-esther-kugel': 'https://i.postimg.cc/nLWkmGph/images-(2).jpg',
+  'pascualina-spinach-pie': 'https://i.postimg.cc/HWbkfWJc/images-(3).jpg',
+  'traditional-flan': 'https://i.postimg.cc/NMwWTtgX/Flan-1.webp',
+  'juliana-focaccia': 'https://i.postimg.cc/V66XKrsM/shutterstock-217221619-i.jpg',
+  'tres-leches-dalit': 'https://i.postimg.cc/zXnpbhyB/Z62-4419-840x559-jpg.webp',
+  'portokalopita-dalit': 'https://i.postimg.cc/6qxntHLd/portokalopita2-s-2.jpg',
+  'cauliflower-dates-salad': 'https://i.postimg.cc/Lsg0bHtQ/images-(4).jpg',
+  'fresh-broccoli-cranberry-salad': 'https://i.postimg.cc/3JdY3KW8/i-Stock-broccoli-salad-i.jpg',
+  'carrot-tzimmes': 'https://i.postimg.cc/rz2XFD8q/zimes-auto-Orient-w.jpg',
+  'beef-tongue-vinaigrette': 'https://i.postimg.cc/R0cn7pxP/307540.jpg',
+  'cured-salmon-gravlax': 'https://i.postimg.cc/wjDBZt4p/shutterstock-394688929.jpg',
 };
 
 export const INITIAL_RECIPES: Recipe[] = [
@@ -33,7 +34,7 @@ export const INITIAL_RECIPES: Recipe[] = [
     cookTime: 'ללא בישול',
     servings: 'קערת רוטב עשירה',
     difficulty: 'קל',
-    imageUrl: guasacacaImg,
+    imageUrl: 'https://i.postimg.cc/KvmnRHBg/images.jpg',
     imageAlt: 'קערת חרס כפרית עם רוטב גואסאקאקה ירוק של אבוקדו, פלפלים וכוסברה',
     isFavorite: true,
     ingredients: [
@@ -91,7 +92,7 @@ export const INITIAL_RECIPES: Recipe[] = [
     cookTime: '20 דקות',
     servings: '4-6 סועדים',
     difficulty: 'קל',
-    imageUrl: choppedLiverImg,
+    imageUrl: 'https://i.postimg.cc/7hkS1BRQ/Adobe-Stock-173581796.jpg',
     imageAlt: 'צלחת כבד קצוץ ביתי עשיר עם בצל מטוגן זהוב',
     isFavorite: true,
     ingredients: [
@@ -141,7 +142,7 @@ export const INITIAL_RECIPES: Recipe[] = [
       }
     ],
     secretTip: 'הטיפ או הסוד של המתכון: הדגש במתכון הוא לא לבשל את הכבדים יותר מדי, כדי שלא יתייבשו! מומלץ לתת לכבדים ולבצל להתקרר לפני הטחינה. הקוניאק הוא תוספת אופציונלית, בכמות קטנה, לפי הטעם.',
-    familyMemory: 'המנה המנחמת של סעודות החג והשבת. טעם עשיר של בית ובצל מקורמל שאין לו תחליף.'
+    familyMemory: 'יש להרחיק את צלחת הכבד מליעוז בארוחות משפחתיות - יש חשש שלא יסכים לחלוק'
   },
 
   // 3. סלט פומלה - סלטים
@@ -156,7 +157,7 @@ export const INITIAL_RECIPES: Recipe[] = [
     cookTime: 'ללא בישול',
     servings: '4-6 סועדים',
     difficulty: 'קל',
-    imageUrl: pomeloSaladImg,
+    imageUrl: 'https://i.postimg.cc/LsGt543J/images-(1).jpg',
     imageAlt: 'קערת סלט פומלה טרי מפורק לפלחים מתובל בפפריקה ושום',
     isFavorite: true,
     ingredients: [
@@ -206,7 +207,7 @@ export const INITIAL_RECIPES: Recipe[] = [
       }
     ],
     secretTip: 'הטיפ או הסוד של המתכון: חשוב לנקות היטב את הפומלה מכל הקליפות והקרומים, כדי שהסלט לא יהיה מר! כל התיבול נעשה לפי הטעם. כדאי להתחיל בכמויות קטנות, במיוחד עם הסוכר והחומץ, לטעום ולהוסיף במידת הצורך.',
-    familyMemory: 'סלט חגיגי, מקורי ומרענן שמפתיע כל פעם מחדש את האורחים בשילוב המושלם בין מתוק, חמצמץ ופיקנטי.'
+    familyMemory: ''
   },
 
   // 4. אלמורוניה עם כנפי עוף, חציל ושקדים - עיקריות
@@ -221,7 +222,7 @@ export const INITIAL_RECIPES: Recipe[] = [
     cookTime: '35 דקות',
     servings: '4-6 סועדים',
     difficulty: 'בינוני',
-    imageUrl: almoroniaImg,
+    imageUrl: 'https://i.postimg.cc/q76KPVHN/Almoronia.jpg',
     imageAlt: 'קדירת אלמורוניה ספרדית עם כנפי עוף פריכות, קוביות חציל, בצל סגול ושקדים',
     isFavorite: true,
     ingredients: [
@@ -298,7 +299,7 @@ export const INITIAL_RECIPES: Recipe[] = [
     cookTime: '45-50 דקות',
     servings: 'תבנית עגולה 20 ס״מ (או אינגליש קייק 22×10)',
     difficulty: 'בינוני',
-    imageUrl: almondPuddingImg,
+    imageUrl: 'https://i.postimg.cc/wTkQ2pgJ/Pudin-de-Almendras2.jpg',
     imageAlt: 'פודינג שקדים ספרדי אפוי מוזהב ברוטב קרמל ענברי עשיר',
     isFavorite: true,
     ingredients: [
@@ -372,7 +373,7 @@ export const INITIAL_RECIPES: Recipe[] = [
     cookTime: 'שעה',
     servings: 'צנצנת ממתקי תפוז עשירה',
     difficulty: 'בינוני',
-    imageUrl: candiedPeelsImg,
+    imageUrl: 'https://i.postimg.cc/q7GtVkZf/9ac8bc782ac3f62f6bf88dc0ff99a2a0-scaled-510x340.jpg',
     imageAlt: 'צנצנת זכוכית עם רצועות קליפות תפוז מסוכרות זוהרות ומצופות בסוכר גבישי',
     isFavorite: true,
     ingredients: [
@@ -410,7 +411,7 @@ export const INITIAL_RECIPES: Recipe[] = [
       }
     ],
     secretTip: 'הטיפ של סבא רבא יצחק: הרתחה כפולה או משולשת של הקליפות במים נקיים מסלקת את המרירות היתרה ומשאירה רק את הארומה ההדרית המשכרת. שמרו בצנצנת אטומה – הן נשמרות חודשים!',
-    familyMemory: 'הריח המשכר של קליפות תפוז מתבשלות בסוכר שהיה ממלא את כל הבית של סבא רבא יצחק. ממתק של פעם מלא געגוע ואהבה.'
+    familyMemory: ''
   },
 
   // 7. קיגל של סבתא אסתר - מנות מסורתיות / מאפים
@@ -425,7 +426,7 @@ export const INITIAL_RECIPES: Recipe[] = [
     cookTime: '30 דקות במחבת',
     servings: '6-8 סועדים (לפחות 2 קיגלים – למשפחה ולסוכה)',
     difficulty: 'בינוני',
-    imageUrl: estherKugelImg,
+    imageUrl: 'https://i.postimg.cc/nLWkmGph/images-(2).jpg',
     imageAlt: 'מחבת כפרית עם קיגל פסטה מסורתי זהוב ומקורמל עם תפוחי עץ וסילאן',
     isFavorite: true,
     ingredients: [
@@ -507,6 +508,527 @@ export const INITIAL_RECIPES: Recipe[] = [
     ],
     secretTip: 'הטיפ או הסוד של המתכון: הפסטה צריכה להתקרר לפני שמוסיפים את שאר המרכיבים! אין במתכון כמויות מדויקות – כמות הביצים, הסוכר, הקינמון והסילאן משתנה לפי כמות הפסטה וגודל הקיגל. הסוכר שמוסיפים בכל הפיכה יוצר בהדרגה שכבה שחומה ומתוקה מבחוץ.',
     familyMemory: 'את הקיגל הזה סבתא אסתר מכינה תמיד בסוכות. היא מכינה לפחות שני קיגלים: אחד למשפחה ואחד לסוכה, כדי לכבד גם את השכנים.'
+  },
+
+  // 8. פסקולינה תרד וביצים - מאפים ומנות מסורתיות
+  {
+    id: 'pascualina-spinach-pie',
+    title: 'פסקולינה תרד וביצים',
+    subtitle: 'Pascualina – מאפה דרום-אמריקאי/ספרדי מסורתי של בצק פריך, עלי תרד ובצל וביצים שלמות הנאפות במרכזו',
+    contributor: 'סבתא אסתר',
+    contributorRole: 'סבתא',
+    category: 'casserole',
+    prepTime: '25 דקות',
+    cookTime: '40-45 דקות',
+    servings: 'תבנית עגולה (6-8 מנות)',
+    difficulty: 'בינוני',
+    imageUrl: 'https://i.postimg.cc/HWbkfWJc/images-(3).jpg',
+    imageAlt: 'מאפה פסקולינה תרד וביצים זהוב ופריך חתוך לפרוסות',
+    isFavorite: true,
+    ingredients: [
+      { item: 'בצק לפסקולינה, אם מצליחים להשיג (או בצק פילו / בצק לאמפנדס)', amount: '2 שכבות (לתחתית ולכיסוי)', icon: '🥟' },
+      { item: 'תרד קפוא', amount: '1 חבילה', icon: '🥬' },
+      { item: 'בצל', amount: '1 יחידה', icon: '🧅' },
+      { item: 'כמה ביצים', amount: 'לפי גודל התבנית (כ־4-6 ביצים)', icon: '🥚' },
+      { item: 'מלח', amount: 'לפי הטעם', icon: '🧂' },
+      { item: 'פלפל שחור', amount: 'לפי הטעם', icon: '✨' },
+      { item: 'שמן לטיגון', amount: 'מעט', icon: '🫒' },
+      { item: 'חלמון ביצה להברשה', amount: '1 יחידה (לא חובה)', icon: '🍳' }
+    ],
+    steps: [
+      {
+        stepNumber: 1,
+        text: 'קוצצים את הבצל ומטגנים במעט שמן.'
+      },
+      {
+        stepNumber: 2,
+        text: 'מוסיפים למחבת את התרד הקפוא וממשיכים לטגן יחד עם הבצל, עד שהתרד מופשר, מתפורר והנוזלים מצטמצמים.'
+      },
+      {
+        stepNumber: 3,
+        text: 'מתבלים במלח ובפלפל לפי הטעם.'
+      },
+      {
+        stepNumber: 4,
+        text: 'מניחים לתערובת התרד להתקרר.'
+      },
+      {
+        stepNumber: 5,
+        text: 'מרפדים תבנית בשכבת בצק.'
+      },
+      {
+        stepNumber: 6,
+        text: 'כשהתרד קר, מעבירים אותו לתבנית ומפזרים באופן אחיד מעל הבצק.'
+      },
+      {
+        stepNumber: 7,
+        text: 'שוברים כמה ביצים שלמות מעל תערובת התרד.'
+      },
+      {
+        stepNumber: 8,
+        text: 'מכסים בשכבת בצק נוספת ומהדקים את הקצוות.'
+      },
+      {
+        stepNumber: 9,
+        text: 'יוצרים חור קטן במרכז הבצק העליון, כדי לאפשר לאדים לצאת בזמן האפייה.'
+      },
+      {
+        stepNumber: 10,
+        text: 'אפשר להבריש את הבצק העליון במעט חלמון ביצה לקבלת צבע יפה.'
+      },
+      {
+        stepNumber: 11,
+        text: 'אופים בתנור שחומם מראש ל־180 מעלות, עד שהבצק אפוי וזהוב מלמעלה.'
+      }
+    ],
+    secretTip: 'חשוב לתת לתערובת התרד להתקרר לפני שמניחים אותה על הבצק. כדאי גם לטגן את התרד עד שאין בו הרבה נוזלים, כדי שהבצק לא יירטב בזמן האפייה. הבצק המקורי לפסקולינה קשה היום להשגה, אבל לפי המתכון אפשר בהחלט להשתמש בבצק פילו או בבצק שמתאים לאמפנדס.',
+    grandmaVoiceNote: 'לפסקולינה צריך לקנות בצק אבל קשה היום להשיג אבל אפשר לעשות בצק אולי לעשות עם בצק פילו אפשרי גם או בצק של אמפנדס זה קל את לוקחת שמה לוקחת חבילה של תרד קפוא מטגנת את הפרד הקפוא עם בצל עד שהכל מתפורר ומוסיפה מלח פלפל שמים צמים את הבצק בתבנית ומוסיפים כשקר התרד לבצק פותחים כמה ביצים ומכסים עם הבצק שלמעלה עושים חור כזה ושמים בתנור על 180 עד שזה מוכן את רואה מלמעלה אפשר למרוח קצת צהוב של ביצה זה יוצא טעים בתיאבון'
+  },
+
+  // 9. פלאן (Flan) - קינוחים
+  {
+    id: 'traditional-flan',
+    title: 'פלאן',
+    subtitle: 'Flan – קינוח פלאן מסורתי ונימוח עם קרמל סמיך ועשיר, אפוי בעדינות בבן מארי',
+    contributor: 'מתכון משפחתי',
+    contributorRole: 'מתכון ביתי',
+    category: 'dessert',
+    prepTime: '15 דקות',
+    cookTime: '50-60 דקות',
+    servings: 'תבנית עגולה (6-8 מנות)',
+    difficulty: 'בינוני',
+    imageUrl: 'https://i.postimg.cc/NMwWTtgX/Flan-1.webp',
+    imageAlt: 'קינוח פלאן קרמל זהוב וחלק עם רוטב עשיר ונימוח',
+    isFavorite: true,
+    ingredients: [
+      { item: 'ביצים', amount: '4 יחידות', icon: '🥚' },
+      { item: 'חלב מרוכז ממותק', amount: '1 קופסה', icon: '🥛' },
+      { item: 'חלב רגיל', amount: 'בכמות של קופסת החלב המרוכז הריקה', icon: '🥛' },
+      { item: 'סוכר להכנת קרמל', amount: 'לפי גודל התבנית (כ־¾ כוס)', icon: '🧂' }
+    ],
+    steps: [
+      {
+        stepNumber: 1,
+        text: 'מכינים קרמל מסוכר ושופכים אותו לתחתית התבנית.'
+      },
+      {
+        stepNumber: 2,
+        text: 'מניחים לקרמל להתקרר מעט ולהתקשות.'
+      },
+      {
+        stepNumber: 3,
+        text: 'בקערה מערבבים את הביצים עם החלב המרוכז הממותק.'
+      },
+      {
+        stepNumber: 4,
+        text: 'ממלאים את קופסת החלב המרוכז הריקה בחלב רגיל ומוסיפים לתערובת.'
+      },
+      {
+        stepNumber: 5,
+        text: 'מערבבים היטב עד שהתערובת אחידה.'
+      },
+      {
+        stepNumber: 6,
+        text: 'יוצקים את התערובת לתבנית מעל הקרמל.'
+      },
+      {
+        stepNumber: 7,
+        text: 'מניחים את התבנית בתוך תבנית גדולה יותר עם מים חמים, כלומר אופים בבן מארי.'
+      },
+      {
+        stepNumber: 8,
+        text: 'אופים בתנור שחומם מראש ל־180 מעלות, עד שהפלאן יציב ומוכן.'
+      }
+    ],
+    secretTip: 'את החלב הרגיל מודדים באמצעות הקופסה הריקה של החלב המרוכז, כך שהיחס נשאר פשוט וקל לזכור. האפייה בבן מארי עוזרת לפלאן להתבשל בעדינות ולקבל מרקם חלק. כדאי לתת לפלאן להתקרר היטב לפני שהופכים אותו לצלחת, כך שהקרמל יהפוך לרוטב ויישפך מעל.',
+    familyMemory: 'קינוח הפלאן האהוב והנוסטלגי, שמוגש תמיד קר עם כל רוטב הקרמל העשיר שנשפך מעליו בארוחות חגיגיות.'
+  },
+
+  // 10. הפוקאצ'ה של ג'וליאנה - מאפים
+  {
+    id: 'juliana-focaccia',
+    title: 'הפוקאצ\'ה של ג\'וליאנה',
+    subtitle: 'פוקאצ\'ה איטלקית ביתית אוורירית וזהובה עם שמן זית, רוזמרין או אורגנו ומלח גס',
+    contributor: 'ג\'וליאנה',
+    contributorRole: 'מתכון ביתי',
+    category: 'baking',
+    prepTime: '20 דקות (+ שעה וחצי התפחה)',
+    cookTime: '30 דקות',
+    servings: 'כ־2 פוקאצ\'ות',
+    difficulty: 'קל',
+    imageUrl: 'https://i.postimg.cc/V66XKrsM/shutterstock-217221619-i.jpg',
+    imageAlt: 'פוקאצ\'ה איטלקית טרייה ואוורירית עם שמן זית, מלח גס ורוזמרין',
+    isFavorite: true,
+    ingredients: [
+      { item: 'קמח', amount: '½ ק"ג', icon: '🌾' },
+      { item: 'שמרים יבשים', amount: '1 כף', icon: '🥖' },
+      { item: 'סוכר', amount: '2 כפות', icon: '🧂' },
+      { item: 'שמן זית', amount: '4 כפות (ועוד מעט לזילוף מעל)', icon: '🫒' },
+      { item: 'מים פושרים', amount: '1½ כוסות', icon: '💧' },
+      { item: 'מלח', amount: 'לפי הטעם', icon: '🧂' },
+      { item: 'רוזמרין או אורגנו', amount: 'לפי הטעם', icon: '🌿' }
+    ],
+    steps: [
+      { stepNumber: 1, text: 'שמים את הקמח בקערה גדולה ויוצרים גומה במרכז.' },
+      { stepNumber: 2, text: 'בתוך הגומה שמים כף אחת של סוכר ו־4 כפות שמן זית.' },
+      { stepNumber: 3, text: 'בקערית נפרדת מערבבים את השמרים היבשים עם כף הסוכר הנותרת ו־½ כוס מים פושרים.' },
+      { stepNumber: 4, text: 'ממתינים כ־5–10 דקות, עד שהשמרים מתחילים לתסוס ולעלות.' },
+      { stepNumber: 5, text: 'שופכים את תערובת השמרים לתוך קערת הקמח.' },
+      { stepNumber: 6, text: 'מוסיפים בהדרגה את יתרת המים ולשים היטב, עד שמתקבל בצק אחיד, רך וגמיש.' },
+      { stepNumber: 7, text: 'מכסים את הקערה ומניחים לבצק לתפוח במקום חמים במשך שעה עד שעה וחצי, עד שהוא מכפיל את נפחו.' },
+      { stepNumber: 8, text: 'לאחר ההתפחה מחלקים את הבצק לשני חלקים שווים.' },
+      { stepNumber: 9, text: 'מרפדים שתי תבניות בנייר אפייה.' },
+      { stepNumber: 10, text: 'מניחים בכל תבנית חצי מהבצק ומשטחים בעזרת הידיים לצורת פוקאצ\'ה יפה.' },
+      { stepNumber: 11, text: 'מזלפים מעל מעט שמן זית, מפזרים מלח ומוסיפים רוזמרין או אורגנו לפי הטעם.' },
+      { stepNumber: 12, text: 'אופים בתנור שחומם מראש ל־180 מעלות במשך כ־30 דקות, או עד שהפוקאצ\'ה זהובה ויפה.' }
+    ],
+    secretTip: 'כדאי לתת לשמרים כמה דקות "להתעורר" במים הפושרים עם הסוכר לפני שמוסיפים אותם לקמח. הבצק אמור להישאר רך וגמיש – לא כדאי להעמיס עליו קמח נוסף רק כדי שיהיה נוח יותר לעבודה. הזילוף של שמן הזית והתיבול מעל הם מה שנותנים לפוקאצ\'ה את הטעם והמרקם האופייניים שלה.',
+    familyMemory: 'הפוקאצ\'ה החמה והניחוחית של ג\'וליאנה, שכולם מחכים לה כשהיא יוצאת מהתנור ונטרפת תוך דקות ספורות.'
+  },
+
+  // 11. עוגת טרס לצ'ס של דלית - עוגות וקינוחים
+  {
+    id: 'tres-leches-dalit',
+    title: 'עוגת טרס לצ\'ס של דלית',
+    subtitle: 'Tres Leches – עוגת שלושת החלבים המפורסמת, רכה, ספוגה בעושר קרמי עם קצפת ועיטור ריבת חלב',
+    contributor: 'דלית',
+    contributorRole: 'מתכון משפחתי',
+    credit: 'לייזה פאנלים',
+    category: 'sweets',
+    prepTime: '25 דקות',
+    cookTime: '25 דקות (+ קירור)',
+    servings: 'תבנית מלבנית 25×30 ס"מ',
+    difficulty: 'בינוני',
+    imageUrl: 'https://i.postimg.cc/zXnpbhyB/Z62-4419-840x559-jpg.webp',
+    imageAlt: 'עוגת טרס לצ\'ס עסיסית עם קצפת עננית ועיטור ריבת חלב',
+    isFavorite: true,
+    ingredients: [
+      { item: 'ביצים בטמפרטורת החדר (לעוגה)', amount: '5 יחידות', icon: '🥚' },
+      { item: 'סוכר (לעוגה)', amount: '¾ כוס (150 גרם)', icon: '🧂' },
+      { item: 'תמצית וניל (לעוגה)', amount: '1 כפית', icon: '✨' },
+      { item: 'סוכר וניל (לעוגה)', amount: '1 שקית', icon: '✨' },
+      { item: 'יוגורט או שמנת חמוצה (לעוגה)', amount: '200 גרם', icon: '🥛' },
+      { item: 'שמן רגיל (לעוגה)', amount: '2 כפות', icon: '🌻' },
+      { item: 'קמח (לעוגה)', amount: '1¼ כוסות (175 גרם)', icon: '🌾' },
+      { item: 'אבקת אפייה (לעוגה)', amount: '1 שקית', icon: '🥄' },
+      { item: 'חלב 3% (לסירופ שלושת החלבים)', amount: '1½ כוסות (כ־360 גרם)', icon: '🥛' },
+      { item: 'שמנת מתוקה (לסירופ שלושת החלבים)', amount: '¼ כוס (כ־60 גרם)', icon: '🥛' },
+      { item: 'חלב מרוכז ממותק (לסירופ שלושת החלבים)', amount: '1 קופסה (כ־350 גרם)', icon: '🥫' },
+      { item: 'שמנת מתוקה (לקצפת)', amount: '2 מכלים', icon: '🥛' },
+      { item: 'אבקת סוכר (לקצפת)', amount: '3 כפות (כ־40 גרם)', icon: '🧂' },
+      { item: 'תמצית וניל (לקצפת)', amount: '1 כפית', icon: '✨' },
+      { item: 'ריבת חלב (לעיטור)', amount: '1 כף גדושה', icon: '🍯' },
+      { item: 'שמנת מתוקה (לדילול ריבת החלב)', amount: 'כ־3 כפות', icon: '🥛' }
+    ],
+    steps: [
+      { stepNumber: 1, text: 'מקציפים את הביצים במהירות גבוהה במשך כ־3 דקות, עד שמתקבל קצף בהיר ותפוח.' },
+      { stepNumber: 2, text: 'מוסיפים בהדרגה את הסוכר, כף אחר כף, תוך כדי הקצפה.' },
+      { stepNumber: 3, text: 'ממשיכים להקציף עוד כ־3 דקות עד לקבלת קצף יציב ואוורירי.' },
+      { stepNumber: 4, text: 'מוסיפים את היוגורט או השמנת החמוצה, תמצית הווניל והשמן ומערבלים קלות.' },
+      { stepNumber: 5, text: 'מנפים פנימה את הקמח, סוכר הווניל ואבקת האפייה.' },
+      { stepNumber: 6, text: 'מקפלים בעדינות עד שלא נשארים גושי קמח. התערובת תאבד מעט מהנפח שלה וזה בסדר גמור.' },
+      { stepNumber: 7, text: 'מעבירים לתבנית מלבנית 25×30 ס"מ משומנת היטב.' },
+      { stepNumber: 8, text: 'אופים בתנור שחומם מראש ל־165 מעלות במשך כ־25 דקות.' },
+      { stepNumber: 9, text: 'בזמן שהעוגה נאפית, מערבבים יחד בקערה את החלב, השמנת המתוקה והחלב המרוכז.' },
+      { stepNumber: 10, text: 'מיד כשהעוגה יוצאת מהתנור, מחוררים אותה היטב בעזרת שיפוד או מזלג.' },
+      { stepNumber: 11, text: 'יוצקים את תערובת החלבים בהדרגה, מצקת אחר מצקת, וממתינים בכל פעם שהנוזלים ייספגו בעוגה.' },
+      { stepNumber: 12, text: 'מקציפים את השמנת המתוקה לקצפת יחד עם אבקת הסוכר ותמצית הווניל, עד לקבלת קצפת קרמית ויציבה.' },
+      { stepNumber: 13, text: 'מורחים את הקצפת בצורה אחידה מעל העוגה.' },
+      { stepNumber: 14, text: 'מערבבים את ריבת החלב עם כ־3 כפות שמנת מתוקה כדי לדלל אותה למרקם נוח לזילוף.' },
+      { stepNumber: 15, text: 'מפזרים נקודות או פסים של ריבת חלב מעל הקצפת.' },
+      { stepNumber: 16, text: 'בעזרת סכין יוצרים בעדינות דוגמת שיש או משיכות יפות בתוך הקצפת.' },
+      { stepNumber: 17, text: 'מעבירים למקרר לכמה שעות לפני ההגשה.' }
+    ],
+    secretTip: 'השלב הכי חשוב הוא לשפוך את תערובת שלושת החלבים על העוגה כשהיא עדיין חמה, אחרי שמחוררים אותה היטב. כך הנוזלים נספגים בכל העוגה ונותנים לה את המרקם העסיסי שמאפיין טרס לצ\'ס. כדאי להוציא את הביצים מהמקרר כחצי שעה לפני ההקצפה כדי שיהיו בטמפרטורת החדר. גם זמן הקירור חשוב: אחרי כמה שעות במקרר העוגה מתייצבת, סופגת את כל הנוזלים והופכת טעימה עוד יותר.',
+    familyMemory: 'עוגת החלומות של דלית במתכון של לייזה פאנלים, עשירה, עסיסית ונמסה בפה בכל ביס.'
+  },
+
+  // 12. עוגת פורטוקלופיטה – דלית - עוגות
+  {
+    id: 'portokalopita-dalit',
+    title: 'עוגת פורטוקלופיטה – דלית',
+    subtitle: 'Portokalopita – עוגת תפוזים ויוגורט יוונית מעלי פילו קרועים, ספוגה בסירופ תפוזים ארומטי',
+    contributor: 'דלית',
+    contributorRole: 'מתכון משפחתי',
+    category: 'sweets',
+    prepTime: '30 דקות (+ שעה ייבוש פילו)',
+    cookTime: '30-45 דקות',
+    servings: 'תבנית 20×30 ס"מ',
+    difficulty: 'בינוני',
+    imageUrl: 'https://i.postimg.cc/6qxntHLd/portokalopita2-s-2.jpg',
+    imageAlt: 'עוגת פורטוקלופיטה יוונית זהובה וספוגה בסירופ תפוזים עשיר',
+    isFavorite: true,
+    ingredients: [
+      { item: 'עלי פילו', amount: '360 גרם', icon: '🥐' },
+      { item: 'ביצים L', amount: '3 יחידות', icon: '🥚' },
+      { item: 'סוכר (לעוגה)', amount: '150 גרם (¾ כוס)', icon: '🧂' },
+      { item: 'מלח', amount: '¼ כפית', icon: '🧂' },
+      { item: 'קליפת תפוז מגוררת', amount: 'מ־2 תפוזים', icon: '🍊' },
+      { item: 'שמן', amount: '180 מ"ל (¾ כוס)', icon: '🌻' },
+      { item: 'מיץ תפוזים סחוט טבעי (לעוגה)', amount: '125 מ"ל (½ כוס)', icon: '🍊' },
+      { item: 'יוגורט ביו טבעי 3% שומן', amount: '200 מ"ל (1 מכל)', icon: '🥛' },
+      { item: 'תמצית וניל', amount: '1 כפית', icon: '✨' },
+      { item: 'אבקת אפייה', amount: '1 כפית', icon: '🥄' },
+      { item: 'סודה לשתייה', amount: '1 כפית', icon: '🥄' },
+      { item: 'מים (לסירופ)', amount: '375 מ"ל (כוס וחצי)', icon: '💧' },
+      { item: 'סוכר (לסירופ)', amount: '300 גרם (כוס וחצי)', icon: '🧂' },
+      { item: 'מיץ תפוזים סחוט (לסירופ)', amount: '80 מ"ל (⅓ כוס)', icon: '🍊' },
+      { item: 'להגשה', amount: 'קצפת רכה לא ממותקת או יוגורט', icon: '🥛' }
+    ],
+    steps: [
+      { stepNumber: 1, text: 'הכנת הסירופ: בסיר שמים מים, סוכר ומיץ תפוזים ומחממים עד לרתיחה.' },
+      { stepNumber: 2, text: 'מנמיכים ללהבה בינונית ומבשלים במשך כ-15 דקות לצמצום קל של הסירופ. מצננים לחלוטין לטמפרטורת החדר.' },
+      { stepNumber: 3, text: 'הכנת עלי הפילו: מפרידים את העלים זה מזה וקורעים לפיסות בידיים (אין צורך באחידות). מניחים על תבנית או מגש ומשהים בחוץ, ללא כיסוי, להתייבשות קלה למשך כשעה.' },
+      { stepNumber: 4, text: 'מחממים תנור מראש ל-180 מעלות ומשמנים תבנית 20×30 ס"מ.' },
+      { stepNumber: 5, text: 'בקערת מיקסר עם וו הקצפה מקציפים ביצים, סוכר, מלח וקליפת תפוזים במהירות גבוהה מאוד עד שמתקבלת תערובת תפוחה ואוורירית.' },
+      { stepNumber: 6, text: 'מערבבים שמן ומיץ תפוזים בקנקן קטן ומוסיפים לקציפת הביצים תוך כדי ערבול אטי בזרם דק. מערבלים עד שהתערובת אחידה.' },
+      { stepNumber: 7, text: 'מערבלים פנימה יוגורט ותמצית וניל עד לאחידות.' },
+      { stepNumber: 8, text: 'מוסיפים אבקת אפייה וסודה לשתייה ומערבלים עד שהן נטמעות בתערובת.' },
+      { stepNumber: 9, text: 'מוסיפים את עלי הפילו הקרועים בכמה נאגלות ומערבבים היטב בין הוספה להוספה (התערובת מתעבה מעט ככל שמוסיפים את העלים).' },
+      { stepNumber: 10, text: 'מעבירים את התערובת לתבנית המשומנת ומיישרים את החלק העליון.' },
+      { stepNumber: 11, text: 'אופים במשך 30-45 דקות או עד שהעוגה משחימה מאוד ויפה בחלק העליון.' },
+      { stepNumber: 12, text: 'דוקרים את החלק העליון של העוגה באמצעות קיסם ליצירת חורים קטנים שדרכם יחלחל הסירופ.' },
+      { stepNumber: 13, text: 'יוצקים את הסירופ הקר על גבי העוגה החמה ומניחים לה לספוג את כל הנוזלים.' },
+      { stepNumber: 14, text: 'מצננים את העוגה לחלוטין במשך 3-4 שעות במקרר, ומגישים עם מעט קצפת לא ממותקת או יוגורט.' }
+    ],
+    secretTip: 'העוגה נשמרת בכלי סגור במקרר עד 4 ימים. מומלץ להוסיף את הקצפת או היוגורט בהגשה לאיזון המתיקות. לא מומלץ להקפיא את העוגה. אם רוצים, אפשר להוסיף לסירופ מי זאהר (מי פריחת הדרים) להעשרת הטעם. אפשר ממש לטחון את עלי הפילו לפירורים דקים, אבל לטעמי המרקם מוצלח ועסיסי בהרבה דווקא כשהם שבורים לפיסות לא אחידות בגודלן.',
+    familyMemory: 'העוגה היוונית הריחנית של דלית שממלאת את הבית בריח הדרים משכר, מושלמת לצד כוס תה או קפה חם.'
+  },
+
+  // 13. סלט כרובית ותמרים - סלטים
+  {
+    id: 'cauliflower-dates-salad',
+    title: 'סלט כרובית ותמרים',
+    subtitle: 'סלט כרובית טרייה פריכה, תמרים מתוקים, צנוברים קלויים ורוקט ברוטב רכז רימונים ושמן זית',
+    contributor: 'דלית',
+    contributorRole: 'מתכון משפחתי',
+    credit: 'רעות עזר',
+    videoUrl: 'https://www.facebook.com/reutezer1/posts/%D7%A1%D7%9C%D7%98-%D7%9B%D7%A8%D7%95%D7%91%D7%99%D7%AA-%D7%AA%D7%9E%D7%A8%D7%99%D7%9D-%D7%95%D7%A6%D7%A0%D7%95%D7%91%D7%A8%D7%99%D7%9D-%D7%A9%D7%90%D7%A0%D7%99-%D7%9E%D7%9B%D7%99%D7%A0%D7%94-%D7%A7%D7%91%D7%95%D7%A2-%D7%91%D7%A1%D7%93%D7%A0%D7%90%D7%95%D7%AA-%D7%95%D7%9B%D7%95%D7%9C%D7%9D-%D7%A2%D7%A4%D7%99%D7%9D-%D7%A2%D7%9C%D7%99%D7%95%D7%A7%D7%9C%D7%99%D7%9C-%D7%95%D7%98%D7%A2%D7%99%D7%9D-%D7%AA%D7%A9%D7%9E%D7%A8/1635113521952789/',
+    videoTitle: 'לצפייה בסרטון ההכנה של רעות עזר ↗',
+    category: 'salads',
+    prepTime: '15 דקות',
+    cookTime: 'ללא בישול (קלייה קצרה)',
+    servings: '4-6 מנות',
+    difficulty: 'קל',
+    imageUrl: 'https://i.postimg.cc/Lsg0bHtQ/images-(4).jpg',
+    imageAlt: 'סלט כרובית ותמרים רענן עם עלי רוקט וצנוברים קלויים',
+    isFavorite: true,
+    ingredients: [
+      { item: 'כרובית קטנה, מופרדת לפרחים', amount: '1 יחידה', icon: '🥦' },
+      { item: 'תמרים ללא הגלעין, פרוסים', amount: '10 יחידות', icon: '🌴' },
+      { item: 'צרור עלי רוקט, קצוץ דק', amount: '1 צרור', icon: '🌿' },
+      { item: 'גבעולי בצל ירוק, פרוסים דק', amount: '4 גבעולים', icon: '🧅' },
+      { item: 'צנוברים קלויים במחבת', amount: '¼ כוס', icon: '🥜' },
+      { item: 'שמן זית', amount: '¼ כוס', icon: '🫒' },
+      { item: 'לימונים סחוטים טרי', amount: '2 יחידות', icon: '🍋' },
+      { item: 'רכז רימונים', amount: '2 כפות', icon: '🍷' },
+      { item: 'מלח ופלפל שחור', amount: 'לפי הטעם', icon: '🧂' }
+    ],
+    steps: [
+      { stepNumber: 1, text: 'קוצצים את פרחי הכרובית – לא דק מדי, כמו בסרטון, כדי לשמור על פריכות ומרקם כיפי.' },
+      { stepNumber: 2, text: 'מניחים את הכרובית הקצוצה בקערת הגשה רחבה.' },
+      { stepNumber: 3, text: 'מוסיפים לקערה את עלי הרוקט, הבצל הירוק, התמרים הפרוסים והצנוברים הקלויים.' },
+      { stepNumber: 4, text: 'מתבלים במלח, פלפל שחור, שמן זית, מיץ מ־2 לימונים סחוטים ו־2 כפות רכז רימונים.' },
+      { stepNumber: 5, text: 'מערבבים היטב ומגישים טרי ורענן לשולחן.' }
+    ],
+    secretTip: 'סלט כרובית תמרים וצנוברים שדלית מכינה קבוע בסדנאות וכולם עפים עליו! קליל וטעים, שילוב מושלם של מתיקות התמרים עם החמיצות של הלימון ורכז הרימונים. שמרו את המתכון לאירוח וחגים.',
+    familyMemory: 'הסלט הכי מבוקש בסדנאות של דלית – כולם תמיד מבקשים את המתכון בסוף הארוחה.'
+  },
+
+  // 14. סלט ברוקולי טרי וחמוציות - סלטים
+  {
+    id: 'fresh-broccoli-cranberry-salad',
+    title: 'סלט ברוקולי טרי וחמוציות',
+    subtitle: 'פרחי ברוקולי טריים, בצל סגול, חמוציות וגרעיני חמנייה ברוטב יוגורט יווני קליל ומיונז',
+    contributor: 'דלית',
+    contributorRole: 'מתכון משפחתי',
+    credit: 'mako אוכל',
+    category: 'salads',
+    prepTime: '15 דקות',
+    cookTime: 'ללא בישול',
+    servings: '4-6 מנות',
+    difficulty: 'קל',
+    imageUrl: 'https://i.postimg.cc/3JdY3KW8/i-Stock-broccoli-salad-i.jpg',
+    imageAlt: 'סלט ברוקולי טרי פריך עם חמוציות, בצל סגול וגרעיני חמנייה קלויים',
+    isFavorite: true,
+    ingredients: [
+      { item: 'ראש ברוקולי, מפורק לפרחים קטנים', amount: '1 יחידה', icon: '🥦' },
+      { item: 'בצל סגול, פרוס דק', amount: '½ יחידה', icon: '🧅' },
+      { item: 'חמוציות', amount: '½ כוס', icon: '🍒' },
+      { item: 'גרעיני חמנייה קלויים', amount: '¼ כוס', icon: '🌻' },
+      { item: 'מיונז או מיונז לייט', amount: '1–2 כפות (לפי הטיפ של דלית)', icon: '🥄' },
+      { item: 'יוגורט יווני', amount: 'להשלמת הרוטב (קרמי וקליל)', icon: '🥛' },
+      { item: 'חומץ', amount: '2 כפות', icon: '🍾' },
+      { item: 'דבש', amount: '2 כפות', icon: '🍯' },
+      { item: 'מלח ופלפל', amount: 'לפי הטעם', icon: '🧂' }
+    ],
+    steps: [
+      { stepNumber: 1, text: 'בקערת הגשה גדולה מערבבים את פרחי הברוקולי הקטנים, הבצל הסגול הפרוס והחמוציות.' },
+      { stepNumber: 2, text: 'בקערית נפרדת מערבבים את חומרי הרוטב: מיונז, יוגורט יווני, חומץ, דבש, מלח ופלפל לפי הטעם.' },
+      { stepNumber: 3, text: 'יוצקים את הרוטב על הסלט ומערבבים היטב שכל פרחי הברוקולי ייעטפו ברוטב.' },
+      { stepNumber: 4, text: 'מפזרים מעל את גרעיני החמנייה הקלויים ומגישים מיד.' }
+    ],
+    secretTip: 'הטיפ של דלית: במקום הרבה מיונז, אני שמה רק 1–2 כפות מיונז ואת השאר משלימה עם יוגורט יווני. יוצא קליל וקרמי בהרבה, רענן ומאוזן להפליא!',
+    familyMemory: 'סלט ירוק פריך, בריא ומלא צבע שתמיד נחטף ראשון בכל שולחן אירוח.'
+  },
+
+  // 15. צימעס גזר - תבשילים
+  {
+    id: 'carrot-tzimmes',
+    title: 'צימעס גזר',
+    subtitle: 'קוביות גזר מתקתקות בבישול מסורתי עדין עם זיגוג עשיר ומנחם',
+    contributor: 'דלית',
+    contributorRole: 'מתכון משפחתי',
+    category: 'mains',
+    prepTime: '10 דקות',
+    cookTime: '35 דקות',
+    servings: '4-6 מנות',
+    difficulty: 'קל',
+    imageUrl: 'https://i.postimg.cc/rz2XFD8q/zimes-auto-Orient-w.jpg',
+    imageAlt: 'סיר צימעס גזר כתום מבושל בעדינות עם זיגוג מבריק',
+    isFavorite: false,
+    ingredients: [
+      { item: 'גזר, חתוך לקוביות', amount: 'לפי הצורך (כ-5–6 גזרים)', icon: '🥕' },
+      { item: 'שמן', amount: 'מעט', icon: '🫒' },
+      { item: 'סוכר', amount: 'מעט', icon: '🍯' },
+      { item: 'מלח', amount: 'מעט', icon: '🧂' },
+      { item: 'מים', amount: 'לא עד לכיסוי מלא', icon: '💧' },
+      { item: 'קמח (לא חובה, להסמכה)', amount: 'מעט', icon: '🌾' },
+      { item: 'מים לערבוב עם הקמח', amount: 'מעט', icon: '🥣' }
+    ],
+    steps: [
+      { stepNumber: 1, text: 'חותכים את הגזר לקוביות ומעבירים לסיר.' },
+      { stepNumber: 2, text: 'מוסיפים מעט שמן, מעט סוכר ומעט מלח.' },
+      { stepNumber: 3, text: 'מוסיפים מים, אבל לא עד לכיסוי מלא של הגזר.' },
+      { stepNumber: 4, text: 'מבשלים עד שהגזר מתרכך והמים הולכים ומצטמצמים.' },
+      { stepNumber: 5, text: 'ממשיכים לבשל עד שכמעט כל הנוזלים מתאדים.' },
+      {
+        stepNumber: 6,
+        text: 'אפשרות להסמכה: אם רוצים להסמיך, מערבבים מעט קמח עם מעט מים עד שאין גושים, מוסיפים לקראת סוף הבישול ומבשלים עוד מעט.',
+        note: 'מעניק לצימעס מרקם קטיפתי ומבריק'
+      }
+    ],
+    secretTip: 'לא להוסיף יותר מדי מים. המטרה היא שהגזר יתבשל בכמות קטנה יחסית של נוזלים, עד שהם כמעט מתאדים לגמרי.',
+    familyMemory: 'הניחוח המתקתק והצבע הכתום הבוהק של הצימעס שעולה מסיר הבישול וממלא את הבית בחמימות נוסטלגית של בית אמא.'
+  },
+
+  // 16. לשון בוויניגרט - תבשילים
+  {
+    id: 'beef-tongue-vinaigrette',
+    title: 'לשון בוויניגרט',
+    subtitle: 'פרוסות לשון בקר נימוחות לאחר בישול עדין בסיר לחץ וקירור ממושך, בתיבול עשבי תיבול, שום, שמן וחומץ אופייני',
+    contributor: 'דלית',
+    contributorRole: 'מתכון משפחתי',
+    category: 'mains',
+    prepTime: '20 דקות (+ יום לקירור)',
+    cookTime: '30–45 דקות',
+    servings: '6–8 מנות',
+    difficulty: 'בינוני',
+    imageUrl: 'https://i.postimg.cc/R0cn7pxP/307540.jpg',
+    imageAlt: 'פרוסות לשון בקר דקות מסודרות ברוטב ויניגרט עם שום קצוץ ופטרוזיליה',
+    isFavorite: false,
+    ingredients: [
+      { item: 'לשון בקר', amount: '1 יחידה', icon: '🥩' },
+      { item: 'בצל', amount: '1 יחידה', icon: '🧅' },
+      { item: 'עלי דפנה', amount: 'כמה עלים', icon: '🍃' },
+      { item: 'גרגירי פלפל שחור', amount: 'לפי הטעם', icon: '✨' },
+      { item: 'שום', amount: 'לפי הטעם (קצוץ)', icon: '🧄' },
+      { item: 'פטרוזיליה קצוצה', amount: 'לפי הטעם', icon: '🌿' },
+      { item: 'שמן', amount: 'לפי הטעם', icon: '🫒' },
+      { item: 'חומץ', amount: 'מעט, לפי הטעם', icon: '🍾' },
+      { item: 'מלח', amount: 'לפי הטעם', icon: '🧂' },
+      { item: 'פלפל שחור', amount: 'לפי הטעם', icon: '✨' }
+    ],
+    steps: [
+      {
+        stepNumber: 1,
+        text: 'מבשלים את הלשון בסיר לחץ עם בצל, עלי דפנה וגרגירי פלפל שחור במשך כ־30–45 דקות, עד שהיא רכה.',
+        note: 'הבישול בסיר לחץ מרכך את בשר הלשון בצורה מושלמת'
+      },
+      {
+        stepNumber: 2,
+        text: 'מוציאים ומניחים לה להתקרר מעט.'
+      },
+      {
+        stepNumber: 3,
+        text: 'מקלפים את הקליפה החיצונית של הלשון.',
+        note: 'הקילוף קל ונוח במיוחד כשהלשון עדיין פושרת'
+      },
+      {
+        stepNumber: 4,
+        text: 'מכניסים למקרר למשך יום, כדי שהלשון תתייצב ויהיה קל לפרוס אותה.'
+      },
+      {
+        stepNumber: 5,
+        text: 'למחרת פורסים לפרוסות דקות.'
+      },
+      {
+        stepNumber: 6,
+        text: 'מוסיפים שום קצוץ, פטרוזיליה, שמן, מעט חומץ, מלח ופלפל.'
+      },
+      {
+        stepNumber: 7,
+        text: 'מערבבים או מסדרים את פרוסות הלשון עם התיבול ומגישים.'
+      }
+    ],
+    secretTip: 'חשוב לקרר את הלשון היטב לפני הפריסה. אחרי לילה במקרר היא מתייצבת ואפשר לפרוס אותה דק ויפה. את השמן והחומץ מוסיפים לפי הטעם, כשהחומץ נותן למנה את הטעם האופייני של הוויניגרט.',
+    familyMemory: 'מנת בשר חגיגית ומסורתית שאי אפשר לחגוג שולחן חג בלעדיה – רכה ונימוחה עם חמצמצות מעודנת.'
+  },
+
+  // 17. סלמון כבוש - סלטים ומנות פתיחה
+  {
+    id: 'cured-salmon-gravlax',
+    title: 'סלמון כבוש',
+    subtitle: 'נתח סלמון עסיסי בכבישה ביתית עדינה של מלח וסוכר, פרוס דק ומלא עידון',
+    contributor: 'דלית',
+    contributorRole: 'מתכון משפחתי',
+    category: 'salads',
+    prepTime: '10 דקות (+ 12 שעות קירור)',
+    cookTime: 'ללא בישול',
+    servings: '6–8 מנות',
+    difficulty: 'קל',
+    imageUrl: 'https://i.postimg.cc/wjDBZt4p/shutterstock-394688929.jpg',
+    imageAlt: 'פרוסות סלמון כבוש ביתי ורוד, דק ועדין עם לימון ועשבי תיבול',
+    isFavorite: false,
+    ingredients: [
+      { item: 'נתח סלמון', amount: 'לפי גודל הנתח (הכמויות משתנות בהתאם)', icon: '🐟' },
+      { item: 'מלח', amount: 'כ־3 כפות (לנתח בינוני)', icon: '🧂' },
+      { item: 'סוכר', amount: 'כ־2 כפות (לנתח בינוני)', icon: '🍯' }
+    ],
+    steps: [
+      {
+        stepNumber: 1,
+        text: 'שוטפים את הסלמון ומייבשים אותו היטב.',
+        note: 'ייבוש יסודי חשוב ביותר להצלחת הכבישה'
+      },
+      {
+        stepNumber: 2,
+        text: 'מערבבים את המלח והסוכר.'
+      },
+      {
+        stepNumber: 3,
+        text: 'מפזרים את התערובת היטב על כל הדג, מכל הצדדים.'
+      },
+      {
+        stepNumber: 4,
+        text: 'מכסים בניילון נצמד ומכניסים למקרר למשך כ־12 שעות.'
+      },
+      {
+        stepNumber: 5,
+        text: 'מוציאים מהמקרר ושוטפים היטב את שאריות המלח והסוכר.'
+      },
+      {
+        stepNumber: 6,
+        text: 'מייבשים שוב.'
+      },
+      {
+        stepNumber: 7,
+        text: 'פורסים לפרוסות דקות ומגישים.',
+        note: 'מומלץ לפרוס דק-דק בזווית אלכסונית בסכין חדה'
+      }
+    ],
+    secretTip: 'חשוב לייבש היטב את הסלמון לפני הכבישה. כמות המלח והסוכר תלויה בגודל הדג, לכן היחס כאן הוא בערך 3 כפות מלח על 2 כפות סוכר לנתח בינוני.',
+    familyMemory: 'מעדן סלמון ביתי שנמס בפה, עדין וממכר – תמיד נחטף ראשון בכל סעודת שבת או אירוח חגיגי.'
   }
 ];
 
